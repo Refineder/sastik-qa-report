@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تقرير مراجعة موقع Sastik</title>
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --card: #fffdf9;
+      --ink: #1f1a14;
+      --muted: #6b635a;
+      --ok: #1f6b4a;
+      --ok-bg: #e6f4ee;
+      --warn: #9a6700;
+      --warn-bg: #fff5db;
+      --bad: #a11d2c;
+      --bad-bg: #fde8ea;
+      --fix: #1d4f91;
+      --fix-bg: #e8f0fb;
+      --line: #e6ddd2;
+      --accent: #2c4a3e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 32px 20px 64px; }
+    h1 { font-size: 1.9rem; margin: 0 0 8px; color: var(--accent); }
+    h2 { font-size: 1.35rem; margin: 36px 0 14px; border-bottom: 2px solid var(--line); padding-bottom: 8px; }
+    h3 { margin: 8px 0; font-size: 1.05rem; }
+    .lead { color: var(--muted); margin: 0 0 24px; }
+    .hero {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .status-pill {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+    .status-pill.ok { background: var(--ok-bg); color: var(--ok); }
+    .status-pill.warn { background: var(--warn-bg); color: var(--warn); margin-right: 8px; }
+    .status-pill.fix { background: var(--fix-bg); color: var(--fix); margin-right: 8px; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .stat {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+    .stat strong { display: block; font-size: 1.6rem; }
+    .stat span { color: var(--muted); font-size: .9rem; }
+    .ok-box {
+      background: var(--ok-bg);
+      color: var(--ok);
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-weight: 600;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .card.warn-card { border-color: #efd89a; background: #fffdf5; }
+    .card.fix-card { border-color: #c5d6f0; background: #f7faff; }
+    .badge {
+      display: inline-block;
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .badge.warn { background: var(--warn-bg); color: var(--warn); }
+    .badge.fix { background: var(--fix-bg); color: var(--fix); }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .shot {
+      margin: 0;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .shot img {
+      width: 100%;
+      display: block;
+      margin: 0;
+      border: 0;
+      background: #fff;
+      cursor: zoom-in;
+      object-fit: cover;
+      object-position: top;
+      aspect-ratio: 16 / 10;
+    }
+    .shot img:hover { opacity: .92; }
+    .shot figcaption { padding: 10px 12px; font-weight: 600; }
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(20, 16, 12, .88);
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: min(1100px, 96vw);
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      cursor: default;
+      background: #fff;
+      aspect-ratio: auto;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      color: #1f1a14;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--line); }
+    th { background: #f0ebe3; }
+    .ok { color: var(--ok); font-weight: 700; }
+    .warn { color: var(--warn); font-weight: 700; }
+    .bad { color: var(--bad); font-weight: 700; }
+    .muted { color: var(--muted); font-size: .92rem; }
+    footer { margin-top: 40px; color: var(--muted); font-size: .9rem; }
+    a { color: var(--accent); }
+    ul { margin: 8px 0 0; padding-right: 18px; }
+    li { margin-bottom: 6px; }
+    .evidence { margin-top: 12px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+    .evidence img { width: 100%; display: block; max-height: 320px; object-fit: cover; object-position: top; cursor: zoom-in; }
+    .evidence figcaption { padding: 6px 12px; font-size: .85rem; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>تقرير مراجعة موقع Sastik</h1>
+      <p class="lead">تقرير مبسّط لغير المتخصصين: هل الصفحات والأزرار والنماذج تعمل؟ وهل توجد مشاكل ظاهرة في الشكل؟</p>
+      <p class="muted">تاريخ التقرير: الأحد، ١٦ أغسطس ٢٠٢٦ · مراجعة شاملة + إصلاح نسيان كلمة المرور والترجمة وبيانات التواصل والوظائف · البيئة المحلية: 127.0.0.1:8000</p>
+      <div class="status-pill ok">الموقع يعمل بشكل سليم</div>
+      <div class="status-pill fix">نسيت كلمة المرور والترجمة والتواصل والوظائف أصلحت</div>
+      <div class="status-pill warn">ملاحظتان قبل الإطلاق</div>
+      <div class="stats">
+        <div class="stat"><strong>68</strong><span>فحص واجهة ناجح</span></div>
+        <div class="stat"><strong>2</strong><span>ملاحظات قبل الإطلاق</span></div>
+        <div class="stat"><strong>0</strong><span>مشكلة توقف الاستخدام</span></div>
+        <div class="stat"><strong>18/18</strong><span>صفحات الموقع (عربي + إنجليزي)</span></div>
+        <div class="stat"><strong>39</strong><span>صفحة لوحة تحكم فُتحت</span></div>
+        <div class="stat"><strong>5</strong><span>اختبار برمجي لنسيان كلمة المرور</span></div>
+      </div>
+      <div class="card warn-card" style="margin-top:18px;margin-bottom:0;">
+        <p style="margin:0 0 8px;font-weight:700;color:var(--warn);">الملاحظات المتبقية:</p>
+        <ol style="margin:0;padding-right:20px;">
+          <li><a href="#note-smtp">بيانات البريد في اللوحة ما زالت فارغة — الرابط لن يصل لصندوق الوارد الحقيقي حتى تُملأ</a></li>
+          <li><a href="#note-payment">الباقات للعرض فقط — لا توجد بوابة دفع</a></li>
+        </ol>
+      </div>
+    </header>
+
+    <h2>الخلاصة بكلمات بسيطة</h2>
+    <div class="card">
+      <p>
+        أُعيد فحص الموقع ولوحة التحكم في ١٦ أغسطس ٢٠٢٦ كأن زائر عادي: فتحنا الصفحات بالعربي والإنجليزي،
+        بدّلنا اللغة، أرسلنا رسالة تواصل، فتحنا مقالاً ووظيفة ودراسة حالة، ثم دخلنا لوحة التحكم وتجوّلنا في كل الأقسام.
+      </p>
+      <p>
+        النتيجة: <strong>التصفح يعمل</strong>. القائمة والفوتر والصفحات القانونية تفتح. نموذج التواصل يحفظ الرسالة.
+        ولوحة التحكم بـ 39 قسماً فتحت بدون صفحة خطأ.
+      </p>
+      <ul>
+        <li>الثيم الحالي المعروض للزائر هو مكتب المساعدة (Help Desk)، بالاتجاهين.</li>
+        <li>نسيت كلمة المرور في دخول اللوحة لم تعد رابطاً شكلياً: فيه صفحة حقيقية ترسل رابط إعادة التعيين.</li>
+        <li>حتى يصل الإيميل لصندوق الوارد، لازم تتعبّى بيانات SMTP من الإعدادات ← البريد (الحقول حالياً فارغة ما عدا المنفذ واسم المرسل).</li>
+      </ul>
+    </div>
+
+    <h2>مشاكل الواجهة</h2>
+    <div class="ok-box">لا توجد أعطال توقف تصفّح الموقع أو لوحة التحكم. الصفحات والأزرار الأساسية تعمل.</div>
+
+    <h2>ما تم إصلاحه في هذه الدورة</h2>
+    <div class="card fix-card" id="fix-forgot">
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>نسيت كلمة المرور في لوحة التحكم</h3>
+      <p style="margin:0;">
+        الرابط كان شكلياً ولا يفتح شيئاً. أصبح يفتح صفحة إدخال البريد، ويرسل رابط إعادة التعيين،
+        وصفحة لتعيين كلمة مرور جديدة. الإرسال يستخدم إعدادات البريد المحفوظة في اللوحة (وليس ملف السيرفر فقط).
+      </p>
+      <figure class="evidence">
+        <img src="qa-report-images/08-forgot-password.png" alt="صفحة نسيت كلمة المرور الجديدة">
+        <figcaption>الصفحة الجديدة: إدخال البريد وإرسال رابط العودة لتسجيل الدخول.</figcaption>
+      </figure>
+    </div>
+    <div class="card fix-card">
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>ربط البريد بإعدادات اللوحة بشكل صحيح</h3>
+      <p style="margin:0;">
+        إعدادات SMTP في لوحة التحكم ← الإعدادات ← البريد أصبحت هي المصدر المعتمد للإرسال (مع تصحيح التشفير SSL لمنفذ 465).
+        إذا كانت الحقول فارغة، النظام لا يحاول الإرسال عبر سيرفر وهمي.
+      </p>
+      <figure class="evidence">
+        <img src="qa-report-images/22-settings-email.png" alt="تبويب إعدادات البريد في لوحة التحكم">
+        <figcaption>مكان بيانات البريد: الخادم، المنفذ، المستخدم، كلمة المرور، عنوان واسم المرسل.</figcaption>
+      </figure>
+    </div>
+    <div class="card fix-card">
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>توجيه خاطئ بعد الدخول لحساب «شريك»</h3>
+      <p style="margin:0;">كان الدخول بهذا الدور يوجّه لصفحة غير موجودة. أصبح يفتح الصفحة الرئيسية للوحة.</p>
+    </div>
+    <div class="card fix-card">
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>اختلاف بريد حساب المدير في بيانات الإنشاء الأولى</h3>
+      <p style="margin:0;">كان الإنشاء يخلط بين صيغتين للبريد. وُحّدت الصيغة حتى لا يحدث لبس عند تسليم بيانات الدخول.</p>
+    </div>
+    <div class="card fix-card" id="note-ar-content">
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>المحتوى العربي في الصفحات الداخلية</h3>
+      <p style="margin:0;">
+        عناوين «من نحن» و«اتصل بنا» وحقول نموذج التواصل أصبحت مترجمة. الزائر العربي يرى النصوص بالعربية بدل مزيج اللغتين.
+      </p>
+      <figure class="evidence">
+        <img src="qa-report-images/06-contact-ar.png" alt="صفحة اتصل بنا بالعربية بعد الترجمة">
+        <figcaption>اتصل بنا والنظام على العربية: العنوان والنموذج بالعربية.</figcaption>
+      </figure>
+    </div>
+    <div class="card fix-card" id="note-placeholders">
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>إخفاء بيانات التواصل التجريبية</h3>
+      <p style="margin:0;">
+        أرقام 555 وإيميل example.com وخريطة دكا لم تعد تظهر للزائر. إذا كانت بيانات التواصل فارغة في اللوحة، يظهر رابط «تواصل معنا» بدل أرقام وهمية.
+        أدخل الهاتف والإيميل والعنوان الحقيقي من الإعدادات ← التواصل عند التوفر.
+      </p>
+      <figure class="evidence">
+        <img src="qa-report-images/12-footer-ar-fixed.png" alt="فوتر النسخة العربية بعد إزالة البيانات التجريبية">
+        <figcaption>الفوتر العربي: روابط قانونية تعمل، وبدون أرقام أو إيميل تجريبي.</figcaption>
+      </figure>
+    </div>
+    <div class="card fix-card" id="note-job">
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>محتوى الوظائف أصبح متطابقاً</h3>
+      <p style="margin:0;">
+        وصف كل وظيفة يطابق مسماها، والمكان Remote، والنوع دوام كامل. نموذج التقديم موجود ويعمل.
+      </p>
+      <figure class="evidence">
+        <img src="qa-report-images/18-career-details.png" alt="تفاصيل وظيفة بعد تصحيح الوصف والمكان">
+        <figcaption>تفاصيل الوظيفة: العنوان والوصف والمكان متوافقة.</figcaption>
+      </figure>
+    </div>
+
+    <h2>الملاحظات المتبقية</h2>
+    <div class="card warn-card" id="note-smtp">
+      <div class="badge warn">تنبيه</div>
+      <h3>بيانات خادم البريد غير مكتملة</h3>
+      <p style="margin:0;">
+        صفحة نسيت كلمة المرور تعمل، لكن خادم البريد واسم المستخدم وكلمة المرور وعنوان المرسل ما زالت فارغة في اللوحة.
+        بدون تعبئتها، الرسالة لن تصل لصندوق الوارد الحقيقي. املأها من الإعدادات ← البريد، احفظ، ثم جرّب إرسال رابط لنفسك.
+      </p>
+    </div>
+    <div class="card warn-card" id="note-payment">
+      <div class="badge warn">تنبيه</div>
+      <h3>لا توجد بوابة دفع مربوطة</h3>
+      <p style="margin:0;">
+        قسم الباقات للعرض. أزرار التجربة/البدء توجّه للتواصل وليس لخطوة دفع. هذا مناسب لموقع تعريفي،
+        وإذا كانت الخطة بيع اشتراكات من الموقع لاحقاً فذلك مشروع منفصل.
+      </p>
+    </div>
+
+    <h2>لقطات من الموقع</h2>
+    <p class="muted">اضغط على أي صورة لعرضها بحجم أكبر.</p>
+    <div class="gallery">
+      <figure class="shot">
+        <img src="qa-report-images/01-home-en.png" alt="الرئيسية بالإنجليزية">
+        <figcaption>الرئيسية — الإنجليزية</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/02-home-ar.png" alt="الرئيسية بالعربية">
+        <figcaption>الرئيسية — العربية</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/03-lang-switcher.png" alt="زر تبديل اللغة">
+        <figcaption>تبديل اللغة (ع / EN)</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/04-about-ar.png" alt="من نحن">
+        <figcaption>من نحن</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/05-blog-en.png" alt="المدونة">
+        <figcaption>المدونة</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/15-blog-details.png" alt="تفاصيل مقال">
+        <figcaption>تفاصيل مقال</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/06-contact-ar.png" alt="اتصل بنا">
+        <figcaption>اتصل بنا</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/16-contact-submitted.png" alt="نجاح إرسال رسالة">
+        <figcaption>رسالة التواصل وصلت</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/17-career-en.png" alt="الوظائف">
+        <figcaption>الوظائف</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/19-case-study.png" alt="دراسة حالة">
+        <figcaption>دراسة حالة</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/13-privacy-ar.png" alt="سياسة الخصوصية">
+        <figcaption>سياسة الخصوصية</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/14-terms-en.png" alt="شروط الخدمة">
+        <figcaption>شروط الخدمة</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/07-dashboard-login.png" alt="دخول اللوحة">
+        <figcaption>دخول لوحة التحكم</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/08-forgot-password.png" alt="نسيت كلمة المرور">
+        <figcaption>نسيت كلمة المرور — صفحة جديدة</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/20-dashboard-home.png" alt="لوحة التحكم">
+        <figcaption>الصفحة الرئيسية للوحة</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/21-settings.png" alt="الإعدادات">
+        <figcaption>الإعدادات العامة</figcaption>
+      </figure>
+    </div>
+
+    <h2>ملخص أقسام الموقع</h2>
+    <table>
+      <thead>
+        <tr><th>القسم</th><th>الحالة</th><th>ناجح</th><th>تنبيه</th><th>فشل</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>الرئيسية (عربي + إنجليزي)</td><td class="ok">سليم</td><td>2</td><td>0</td><td>0</td></tr>
+        <tr><td>تبديل اللغة</td><td class="ok">سليم</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>الفريق</td><td class="ok">سليم</td><td>2</td><td>0</td><td>0</td></tr>
+        <tr><td>من نحن</td><td class="ok">سليم</td><td>2</td><td>0</td><td>0</td></tr>
+        <tr><td>الوظائف وتفاصيلها</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>المدونة وتفاصيل المقال</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>دراسة الحالة</td><td class="ok">سليم</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>اتصل بنا (النموذج يحفظ)</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>سياسة الخصوصية وشروط الخدمة</td><td class="ok">سليم</td><td>4</td><td>0</td><td>0</td></tr>
+        <tr><td>صفحة غير موجودة (404)</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>الفوتر</td><td class="ok">سليم</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>الباقات (عرض فقط)</td><td class="warn">تنبيه</td><td>1</td><td>1</td><td>0</td></tr>
+      </tbody>
+    </table>
+
+    <h2>ملخص لوحة التحكم</h2>
+    <p class="muted">تم فتح كل روابط القائمة الجانبية بعد تسجيل الدخول. لا توجد صفحة أعطت خطأ خادم.</p>
+    <table>
+      <thead>
+        <tr><th>القسم</th><th>الحالة</th><th>ناجح</th><th>تنبيه</th><th>فشل</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>تسجيل الدخول</td><td class="ok">سليم</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>نسيت كلمة المرور + إعادة التعيين</td><td class="warn">تنبيه</td><td>3</td><td>1</td><td>0</td></tr>
+        <tr><td>الرئيسية والتحليلات والملف الشخصي</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>المستخدمون والمديرون والأدوار والصلاحيات</td><td class="ok">سليم</td><td>4</td><td>0</td><td>0</td></tr>
+        <tr><td>محتوى الموقع (فريق، وظائف، مدونة، قانونية…)</td><td class="ok">سليم</td><td>24</td><td>0</td><td>0</td></tr>
+        <tr><td>الإعدادات (عام + بريد)</td><td class="warn">تنبيه</td><td>2</td><td>1</td><td>0</td></tr>
+        <tr><td>النشرة والنسخ الاحتياطي وعناوين IP</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+      </tbody>
+    </table>
+
+    <h2>ماذا يعني هذا لصاحب المشروع؟</h2>
+    <div class="card">
+      <p><strong class="ok">سليم:</strong> الصفحة أو الزر يشتغل بشكل طبيعي، وما في شيء يمنع استخدامه.</p>
+      <p><strong class="warn">تنبيه:</strong> الموقع يشتغل، لكن فيه نقطة تحتاج قرار أو محتوى أو إعداد قبل الإطلاق الرسمي.</p>
+      <p><strong class="bad">خطأ:</strong> وظيفة مهمة لا تعمل الآن. <strong>لا يوجد حالياً بند مصنّف كخطأ.</strong></p>
+    </div>
+
+    <h2>التوصية قبل الإطلاق</h2>
+    <div class="card">
+      <p style="margin:0 0 8px;">الموقع جاهز للمعاينة والاستخدام الداخلي. قبل الإطلاق الرسمي بالترتيب:</p>
+      <ul>
+        <li>تعبئة بيانات SMTP من الإعدادات ← البريد وتجربة نسيت كلمة المرور على إيميل حقيقي.</li>
+        <li>إدخال هاتف وإيميل وعنوان حقيقيين من الإعدادات ← التواصل عند التوفر.</li>
+        <li>مراجعة الصفحات القانونية مع مختص إن لزم.</li>
+      </ul>
+    </div>
+
+    <footer>
+      تم إنشاء هذا التقرير من نتائج المراجعة في ١٦ أغسطس ٢٠٢٦.
+      الملفات التقنية: QA_UI_INTERACTIONS_SHEET.csv و QA_FULL_REVIEW.json داخل مجلد docs.
+      الصور في <code>qa-report-images/</code> · افتح هذا الملف مباشرة في المتصفح.
+    </footer>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="إغلاق">&times;</button>
+    <img id="lightbox-img" alt="">
+  </div>
+  <script>
+    (function () {
+      const box = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      const closeBtn = document.getElementById('lightbox-close');
+      if (!box || !img) return;
+      function openLightbox(src, alt) {
+        img.src = src;
+        img.alt = alt || '';
+        box.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLightbox() {
+        box.classList.remove('open');
+        img.removeAttribute('src');
+        document.body.style.overflow = '';
+      }
+      document.querySelectorAll('.gallery .shot img, .evidence img').forEach((thumb) => {
+        thumb.addEventListener('click', () => openLightbox(thumb.currentSrc || thumb.src, thumb.alt));
+      });
+      closeBtn?.addEventListener('click', (e) => { e.stopPropagation(); closeLightbox(); });
+      box.addEventListener('click', closeLightbox);
+      img.addEventListener('click', (e) => e.stopPropagation());
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && box.classList.contains('open')) closeLightbox();
+      });
+    })();
+  </script>
+</body>
+</html>
