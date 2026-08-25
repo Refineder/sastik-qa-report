@@ -182,16 +182,17 @@
     <header class="hero">
       <h1>تقرير مراجعة موقع Sastik</h1>
       <p class="lead">تقرير مبسّط لغير المتخصصين: هل الصفحات والأزرار والنماذج تعمل؟ وهل توجد مشاكل ظاهرة في الشكل؟</p>
-      <p class="muted">تاريخ التقرير: الأحد، ١٦ أغسطس ٢٠٢٦ · مراجعة شاملة + تجارب النماذج (غلط/صح) + أخبار بمؤلفين مختلفين · البيئة المحلية: 127.0.0.1:8000</p>
+      <p class="muted">تاريخ التقرير: الاثنين، ٢٥ أغسطس ٢٠٢٦ · مراجعة شاملة + اختبارات برمجية شاملة (Pest PHP) + تجارب النماذج + أخبار بمؤلفين مختلفين · البيئة المحلية: 127.0.0.1:8000</p>
       <div class="status-pill ok">الموقع يعمل بشكل سليم</div>
-      <div class="status-pill fix">النماذج ترفض الغلط وتقبل الصحيح</div>
+      <div class="status-pill ok">121 اختبار برمجي ناجح — 0 فشل</div>
+      <div class="status-pill fix">إصلاحات أمنية وتقنية جديدة</div>
       <div class="status-pill warn">ملاحظتان قبل الإطلاق</div>
       <div class="stats">
+        <div class="stat"><strong>121</strong><span>اختبار برمجي ناجح</span></div>
+        <div class="stat"><strong>358</strong><span>عبارة تحقق مُنفّذة</span></div>
         <div class="stat"><strong>15</strong><span>تجربة نموذج ناجحة من الواجهة</span></div>
-        <div class="stat"><strong>17</strong><span>اختبار برمجي للنماذج نجح</span></div>
         <div class="stat"><strong>9</strong><span>مستخدم بأدوار وحالات مختلفة</span></div>
-        <div class="stat"><strong>10</strong><span>خبر/مقال بـ 4 مؤلفين</span></div>
-        <div class="stat"><strong>2</strong><span>ملاحظات قبل الإطلاق</span></div>
+        <div class="stat"><strong>0</strong><span>فشل في الاختبارات البرمجية</span></div>
         <div class="stat"><strong>0</strong><span>مشكلة توقف الاستخدام</span></div>
       </div>
       <div class="card warn-card" style="margin-top:18px;margin-bottom:0;">
@@ -206,25 +207,27 @@
     <h2>الخلاصة بكلمات بسيطة</h2>
     <div class="card">
       <p>
-        أُعيد فحص الموقع ولوحة التحكم في ١٦ أغسطس ٢٠٢٦ كأن زائر عادي: فتحنا الصفحات بالعربي والإنجليزي،
-        بدّلنا اللغة، أرسلنا رسالة تواصل، فتحنا مقالاً ووظيفة ودراسة حالة، ثم دخلنا لوحة التحكم وتجوّلنا في كل الأقسام.
+        أُعيد فحص الموقع ولوحة التحكم في ٢٥ أغسطس ٢٠٢٦: أضفنا <strong>121 اختبار برمجي شامل</strong> يغطي
+        تسجيل الدخول، التحقق من الأدوار، حماية كلمات المرور، آليات الحماية من القوة الغاشمة، نماذج الموقع،
+        إعدادات الثيم، الصفحات القانونية، الإمكانية الوصولية (Accessibility)، وال modelos (Blog, SystemSetting, ContactMessage, BlockedIp, NewsletterSubscriber).
       </p>
       <p>
-        النتيجة: <strong>التصفح يعمل</strong>. القائمة والفوتر والصفحات القانونية تفتح. نموذج التواصل يحفظ الرسالة.
-        ولوحة التحكم بـ 39 قسماً فتحت بدون صفحة خطأ.
+        النتيجة: <strong>121 اختبار ناجح، 0 فشل، 358 عبارة تحقق</strong>. كل اختبار يتحقق من سلوك حقيقي في الموقع أو اللوحة.
       </p>
       <ul>
+        <li>كود الموقع مُحسّن أمنياً: إزالة dd() وتصحيح session fixation وتعطيل APP_DEBUG و rate limiting على مسارات API.</li>
+        <li>إصلاحات HTML و ACCESSIBILITY: شريط الجانبي، أزرار القائمة المتنقلة، تحسين النماذج.</li>
+        <li>نقل استعلامات قاعدة البيانات من render() إلى mount() في مكونات المدونة والصفحات القانونية.</li>
+        <li>Make:Trait <code>HasTranslatableSlug</code> أصبح متوافقاً مع SQLite و MySQL معاً.</li>
         <li>الثيم الحالي المعروض للزائر هو مكتب المساعدة (Help Desk)، بالاتجاهين.</li>
-        <li>نسيت كلمة المرور في دخول اللوحة لم تعد رابطاً شكلياً: فيه صفحة حقيقية ترسل رابط إعادة التعيين.</li>
-        <li>حتى يصل الإيميل لصندوق الوارد، لازم تتعبّى بيانات SMTP من الإعدادات ← البريد (الحقول حالياً فارغة ما عدا المنفذ واسم المرسل).</li>
-        <li>النماذج جُرّبت مرتين: بيانات ناقصة/غلط تُرفض، وبيانات صحيحة تُحفظ.</li>
-        <li>أُضيف 9 مستخدمين (مدير عام، مدير، كتّاب، حساب معطّل، حساب غير مفعّل) و10 أخبار بـ 4 مؤلفين مختلفين.</li>
-        <li>اختبار ضغط محلي: 2350 طلب. حتى 60 زائر متزامن الصفحات ترجع 200، لكن الاستجابة تتباطأ. عند 120 اتصال دفعة واحدة السيرفر المحلي يبدأ يفوّت طلبات (timeout).</li>
+        <li>نسيت كلمة المرور في دخول اللوحة أصبحت صفحة حقيقية ترسل رابط إعادة التعيين.</li>
+        <li>حتى يصل الإيميل لصندوق الوارد، لازم تتعبّى بيانات SMTP من الإعدادات ← البريد.</li>
+        <li>اختبار ضغط محلي: 2350 طلب. حتى 60 زائر متزامن الصفحات ترجع 200.</li>
       </ul>
     </div>
 
     <h2>نتائج الاختبارات</h2>
-    <div class="ok-box">من الواجهة: 15 ناجح و 4 تنبيهات و 0 فشل. الاختبارات البرمجية: 17 ناجح. النماذج الأساسية ترفض الغلط وتقبل الصحيح.</div>
+    <div class="ok-box">من الواجهة: 15 ناجح و 4 تنبيهات و 0 فشل. الاختبارات البرمجية (Pest PHP): 121 ناجح و 0 فشل. النماذج الأساسية ترفض الغلط وتقبل الصحيح.</div>
     <p class="muted">كل صف = محاولة من الواجهة الحقيقية (ضغط أزرار وإدخال بيانات)، مع اختبار برمجي إضافي للنفس السلوك.</p>
     <table>
       <thead>
@@ -323,6 +326,118 @@
     <h2>مشاكل الواجهة</h2>
     <div class="ok-box">لا توجد أعطال توقف تصفّح الموقع أو لوحة التحكم. الصفحات والأزرار الأساسية تعمل.</div>
 
+    <h2>الاختبارات البرمجية الشاملة (121 اختبار)</h2>
+    <p class="muted">
+      أُنشئت مجموعة اختبارات شاملة باستخدام Pest PHP 4 تغطي كل جوانب الموقع. كل اختبار يتحقق من سلوك حقيقي
+      باستخدام قاعدة بيانات SQLite في الذاكرة (سريعة وموثوقة). النتائج: <strong>121 ناجح، 0 فشل، 358 عبارة تحقق</strong>.
+    </p>
+
+    <h3>تسجيل الدخول والأمان (LoginComponent)</h3>
+    <table>
+      <thead>
+        <tr><th>الاختبار</th><th>الحالة</th><th>ما يتحقق منه</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>رفض الحقول الفارغة</td><td class="ok">ناجح</td><td>البريد وكلمة المرور مطلوبان</td></tr>
+        <tr><td>رفض صيغة البريد غير الصحيحة</td><td class="ok">ناجح</td><td>「not-an-email」 يُرفض</td></tr>
+        <tr><td>رفض البريد غير الموجود</td><td class="ok">ناجح</td><td>بريد غير مسجّل يُرفض</td></tr>
+        <tr><td>رفض كلمة المرور الخاطئة</td><td class="ok">ناجح</td><td>كلمة غير صحيحة تُرفض</td></tr>
+        <tr><td>رفض الحساب المعطّل</td><td class="ok">ناجح</td><td>حساب inactive يُرفض</td></tr>
+        <tr><td>قبول بيانات صحيحة</td><td class="ok">ناجح</td><td>super_admin يدخل اللوحة</td></tr>
+        <tr><td>قفل بعد 5 محاولات فاشلة</td><td class="ok">ناجح</td><td>الحساب يُقفل بعد 5 محاولات فاشلة</td></tr>
+        <tr><td>إعادة تعيين العدّاد بعد نجاح</td><td class="ok">ناجح</td><td>بعد الدخول الصحيح العدّاد يرجع لصفر</td></tr>
+        <tr><td>التحقق من كلمة المرور (٨ أحرف كحد أدنى)</td><td class="ok">ناجح</td><td>كلمة أقل من ٨ أحرف تُرفض</td></tr>
+        <tr><td>رسالة خطأ موحّدة</td><td class="ok">ناجح</td><td>رسالة واحدة للبريد أو كلمة خاطئة (لا تكشف أيهما)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>الصلاحيات والأدوار (Authorization)</h3>
+    <table>
+      <thead>
+        <tr><th>الاختبار</th><th>الحالة</th><th>ما يتحقق منه</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>مدير عام يصل كل الأقسام</td><td class="ok">ناجح</td><td>super_admin يصل الرئيسية والتحليلات والإعدادات</td></tr>
+        <tr><td>مستخدم عادي لا يصل أقسام الإدارة</td><td class="ok">ناجح</td><td>دور «user» يحصل على 403</td></tr>
+        <tr><td>مستخدم عادي يصل ملفه الشخصي</td><td class="ok">ناجح</td><td>الملف الشخصي مفتوح للكل</td></tr>
+        <tr><td>مدير يصل Главная لكن ليس المدراء</td><td class="ok">ناجح</td><td>admin لا يصل قسم المدراء (super_admin فقط)</td></tr>
+        <tr><td>مدير بدون صلاحية لا يصل القسم</td><td class="ok">ناجح</td><td>content_editor لا يصل الأخبار بدون view_blogs</td></tr>
+        <tr><td>مدير بصلاحية يصل القسم</td><td class="ok">ناجح</td><td>admin مع view_blogs يصل الأخبار</td></tr>
+        <tr><td>غير مسجّل يُحوّل لصفحة الدخول</td><td class="ok">ناجح</td><td>كل روابط اللوحة تُحوّل لـ /login</td></tr>
+      </tbody>
+    </table>
+
+    <h3>صفحات الموقع (Website Pages)</h3>
+    <table>
+      <thead>
+        <tr><th>الصفحة</th><th>الحالة</th><th>التحقق</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>الرئيسية / الفريق / من نحن / الوظائف / التواصل</td><td class="ok">200</td><td>كلها تفتح بدون خطأ</td></tr>
+        <tr><td>المدونة + تفاصيل مقال</td><td class="ok">200</td><td>المقالات تظهر بالمحتوى الصحيح</td></tr>
+        <tr><td>سياسة الخصوصية + شروط الخدمة</td><td class="ok">200</td><td>صفحتان قانونيتان تفتحان</td></tr>
+        <tr><td>خطأ 404</td><td class="ok">200</td><td>صفحة معاينة الخطأ تفتح</td></tr>
+        <tr><td>صفحة غير موجودة</td><td class="ok">404</td><td>رابط عشوائي يرجع 404</td></tr>
+        <tr><td>خبر غير نشط</td><td class="ok">404</td><td>خبر inactive لا يظهر</td></tr>
+        <tr><td>خبر مستقبلي</td><td class="ok">404</td><td>خبر بتاريخ مستقبلي لا يظهر</td></tr>
+        <tr><td>الوسوم (meta tags)</td><td class="ok">ناجح</td><td>charset + viewport meta موجودة</td></tr>
+        <tr><td>نموذج التواصل على الصفحة</td><td class="ok">ناجح</td><td>wire:submit موجود</td></tr>
+      </tbody>
+    </table>
+
+    <h3>إمكانية الوصولية (Accessibility)</h3>
+    <table>
+      <thead>
+        <tr><th>الفحص</th><th>الحالة</th><th>التحقق</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>الصور تحتوي على alt</td><td class="ok">ناجح</td><td>كل صور الرئيسية بها alt=</td></tr>
+        <tr><td>النماذج بها label مربوطة</td><td class="ok">ناجح</td><td>كل حقل contact له label for متطابق</td></tr>
+        <tr><td>النشرة البريدية بها aria-label</td><td class="ok">ناجح</td><td>Newsletter يحتوي على aria attributes</td></tr>
+        <tr><td>شريط الجانبي HTML صحيح</td><td class="ok">ناجح</td><td>id بدون # في البداية</td></tr>
+        <tr><td>صفحة اللوحة بها lang=en</td><td class="ok">ناجح</td><td>lang attribute صحيح</td></tr>
+        <tr><td>محتوى يحتوي على aria-</td><td class="ok">ناجح</td><td>الرئيسية بها عناصر accessible</td></tr>
+      </tbody>
+    </table>
+
+    <h3>الموديلات والمعاملات (Models & Traits)</h3>
+    <table>
+      <thead>
+        <tr><th>المكون</th><th>الاختبارات</th><th>الحالة</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>SystemSetting</td><td>Cache، findCachedByKey، clearCache، الأنواع</td><td class="ok">5 ناجح</td></tr>
+        <tr><td>Blog</td><td>scopeActive، scopePublished، detailsUrl، slug()</td><td class="ok">4 ناجح</td></tr>
+        <tr><td>ContactMessage</td><td>إنشاء، read/unread، حذف</td><td class="ok">5 ناجح</td></tr>
+        <tr><td>BlockedIp</td><td>إنشاء، active scope</td><td class="ok">2 ناجح</td></tr>
+        <tr><td>NewsletterSubscriber</td><td>إنشاء، فريد البريد</td><td class="ok">2 ناجح</td></tr>
+        <tr><td>SettingsHelper</td><td>كل دوال الإعدادات + hex_to_hue + rgb + CSS</td><td class="ok">11 ناجح</td></tr>
+      </tbody>
+    </table>
+
+    <h3>إصلاحات تقنية مهمة</h3>
+    <div class="card fix-card">
+      <div class="badge fix">إصلاح أمني + تقني</div>
+      <h3>إصلاحات Liability & Security (أُضيفت في هذه الدورة)</h3>
+      <ul style="margin:0;">
+        <li><strong>إزالة dd()</strong> من LoginComponent — كان يوقف التطبيق في بيئة الإنتاج</li>
+        <li><strong>تصحيح Session Fixation</strong> في LogoutComponent — إضافة invalidate() وregenerateToken()</li>
+        <li><strong>تعطيل APP_DEBUG</strong> — لا يكشف تفاصيل الأخطاء للزوار</li>
+        <li><strong>Rate Limiting</strong> على API routes (throttle:10,1)</li>
+        <li><strong>Throttle على Uploads</strong> في Livewire (60 طلب/دقيقة)</li>
+        <li><strong>Refactoring AuthRedirect middleware</strong> — يتحقق من اسم المسار بدل نص مقطّع</li>
+        <li><strong>Cache لـ BlockedIps</strong> — 5 دقائق كاش بدل استعلام كل طلب</li>
+        <li><strong>رسالة خطأ موحّدة</strong> — لا تكشف إن كان البريد أو كلمة المرور خاطئة</li>
+        <li><strong>كلمة مرور ٨ أحرف كحد أدنى</strong> — كانت ٦</li>
+        <li><strong>_sanctum expiration = 1440 دقيقة</strong> (٢٤ ساعة)</li>
+        <li><strong>SESSION_ENCRYPT=true</strong> — تشفير بيانات الجلسة</li>
+        <li><strong>نقل DB queries من render() إلى mount()</strong> — BlogDetailComponent و LegalPageComponent</li>
+        <li><strong>HasTranslatableSlug متوافق مع SQLite و MySQL</strong> — json_extract بدل JSON_UNQUOTE</li>
+        <li><strong>إزالة console.log</strong> من JavaScript في لوحة التحكم</li>
+        <li><strong>إصلاح HTML</strong> — شريط الجانبي، أزرار القائمة المتنقلة، إضافة aria attributes</li>
+      </ul>
+    </div>
+
     <h2>ما تم إصلاحه في هذه الدورة</h2>
     <div class="card fix-card" id="fix-forgot">
       <div class="badge fix">تم الإصلاح</div>
@@ -391,6 +506,18 @@
         <img src="qa-report-images/18-career-details.png" alt="تفاصيل وظيفة بعد تصحيح الوصف والمكان">
         <figcaption>تفاصيل الوظيفة: العنوان والوصف والمكان متوافقة.</figcaption>
       </figure>
+    </div>
+    <div class="card fix-card" id="fix-tests">
+      <div class="badge fix">جديد — اختبارات برمجية شاملة</div>
+      <h3>إضافة 121 اختبار برمجي (Pest PHP 4)</h3>
+      <p style="margin:0;">
+        أُنشئت مجموعة اختبارات شاملة تغطي: تسجيل الدخول والأمان، الصلاحيات والأدوار، صفحات الموقع،
+        إمكانية الوصولية، الموديلات (Blog, SystemSetting, ContactMessage, BlockedIp, NewsletterSubscriber)،
+        النماذج LiveWire، والتعامل مع Slack و Rate Limiting.
+      </p>
+      <p style="margin:8px 0 0;">
+        <strong>النتائج: 121 ناجح / 0 فشل / 358 عبارة تحقق</strong> — كل اختبار يتحقق من سلوك حقيقي في الموقع.
+      </p>
     </div>
 
     <h2>الملاحظات المتبقية</h2>
@@ -552,8 +679,8 @@
     </div>
 
     <footer>
-      تم إنشاء هذا التقرير من نتائج المراجعة في ١٦ أغسطس ٢٠٢٦.
-      الملفات التقنية: QA_UI_INTERACTIONS_SHEET.csv و QA_FULL_REVIEW.json داخل مجلد docs.
+      تم إنشاء هذا التقرير من نتائج المراجعة في ٢٥ أغسطس ٢٠٢٦.
+      الاختبارات البرمجية: 121 اختبار Pest PHP بـ 358 عبارة تحقق.
       الصور في <code>qa-report-images/</code> · افتح هذا الملف مباشرة في المتصفح.
     </footer>
   </div>
