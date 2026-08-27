@@ -115,7 +115,19 @@
       aspect-ratio: 16 / 10;
     }
     .shot img:hover { opacity: .92; }
-    .shot figcaption { padding: 10px 12px; font-weight: 600; }
+    .evidence figcaption { padding: 10px 14px 12px; font-size: .95rem; color: var(--ink); line-height: 1.65; }
+    .cap-label {
+      display: inline-block;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+    .cap-label.ok { background: var(--ok-bg); color: var(--ok); }
+    .cap-label.warn { background: var(--warn-bg); color: var(--warn); }
+    .cap-label.fix { background: var(--fix-bg); color: var(--fix); }
+    .shot figcaption { padding: 10px 12px; font-weight: 600; line-height: 1.5; font-size: .9rem; }
     .lightbox {
       position: fixed;
       inset: 0;
@@ -174,7 +186,6 @@
     li { margin-bottom: 6px; }
     .evidence { margin-top: 12px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
     .evidence img { width: 100%; display: block; max-height: 320px; object-fit: cover; object-position: top; cursor: zoom-in; }
-    .evidence figcaption { padding: 6px 12px; font-size: .85rem; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -240,20 +251,16 @@
         <tr><td>دخول اللوحة</td><td class="ok">فارغ / إيميل غير موجود / كلمة غلط / حساب معطّل → يُرفض</td><td class="ok">super_admin@refineders.com / password → دخل اللوحة</td></tr>
         <tr><td>نسيت كلمة المرور</td><td class="ok">فارغ / بريد غلط / إيميل غير موجود → يُرفض</td><td class="warn">إيميل موجود لكن SMTP فارغ → لا يُرسل للوارد</td></tr>
         <tr><td>إضافة مستخدم من اللوحة</td><td class="ok">الحقول الفارغة وكلمة قصيرة تُرفض (اختبار برمجي)</td><td class="ok">مستخدم صحيح يُنشأ (اختبار برمجي). من المتصفح الآلي الربط مع المودال كان غير ثابت</td></tr>
-        <tr><td>إضافة خبر من اللوحة</td><td class="ok">عنوان عربي/إنجليزي فارغ يُرفض (اختبار برمجي)</td><td class="ok">الأخبار أُنشئت عبر البيانات الأولية بمؤلفين مختلفين</td></tr>
+        <tr><td>إضافة خبر من اللوحة</td><td class="ok">عنوان إنجليزي فارغ يُرفض (اختبار برمجي)</td><td class="ok">الأخبار أُنشئت عبر البيانات الأولية بمؤلفين مختلفين</td></tr>
       </tbody>
     </table>
-    <figure class="evidence">
-      <img src="qa-report-images/16-contact-submitted.png" alt="نموذج التواصل بالإنجليزية بعد الإرسال">
-      <figcaption>تواصل إنجليزي: إرسال صحيح يظهر رسالة نجاح على النموذج الإنجليزي.</figcaption>
-    </figure>
-    <figure class="evidence">
-      <img src="qa-report-images/36-login-invalid.png" alt="دخول اللوحة بحقول فارغة">
-      <figcaption>دخول اللوحة: البريد وكلمة المرور مطلوبان.</figcaption>
-    </figure>
+    <p class="muted" style="margin-top:14px;">الجدول فوق = نتائج الاختبار. الصور تحت = أمثلة فقط، ومكتوب تحت كل صورة هل دي مشكلة ولا لأ.</p>
     <figure class="evidence">
       <img src="qa-report-images/38-forgot-known.png" alt="نسيت كلمة المرور لإيميل موجود بدون SMTP">
-      <figcaption>نسيت كلمة المرور لإيميل المدير: الرابط لا يُرسل لأن خادم البريد غير مكتمل.</figcaption>
+      <figcaption>
+        <span class="cap-label warn">ملاحظة قبل الإطلاق — مش عطل في الصفحة</span><br>
+        دي صفحة «نسيت كلمة المرور» بعد إدخال إيميل المدير. الصفحة تشتغل، لكن الرسالة مش هتوصل لصندوق الوارد لأن بيانات خادم البريد (SMTP) في اللوحة لسه فاضية.
+      </figcaption>
     </figure>
 
     <h2>اختبار الضغط (أعداد كبيرة)</h2>
@@ -302,7 +309,10 @@
     </div>
     <figure class="evidence">
       <img src="qa-report-images/43-users-list.png" alt="قائمة المستخدمين في لوحة التحكم">
-      <figcaption>إدارة المستخدمين: كتّاب وحالات active/inactive بعد إنشاء الحسابات.</figcaption>
+      <figcaption>
+        <span class="cap-label ok">سليم — مش مشكلة</span><br>
+        قائمة المستخدمين في اللوحة بعد ما أنشأنا حسابات تجريبية (كتّاب + active/inactive) عشان نختبر الأدوار.
+      </figcaption>
     </figure>
     <div class="card">
       <p>أُضيفت <strong>10 مقالات/أخبار</strong> على <code>/en/blog</code> و<code>/ar/blog</code>، منها 4 أخبار جديدة في تصنيف News، بمؤلفين مختلفين:</p>
@@ -315,11 +325,17 @@
     </div>
     <figure class="evidence">
       <img src="qa-report-images/34-news-list.png" alt="قائمة الأخبار والمدونة">
-      <figcaption>صفحة المدونة/الأخبار بعد إضافة المحتوى.</figcaption>
+      <figcaption>
+        <span class="cap-label ok">سليم — مش مشكلة</span><br>
+        صفحة المدونة بعد إضافة المقالات. المحتوى ظاهر للزائر بشكل طبيعي.
+      </figcaption>
     </figure>
     <figure class="evidence">
       <img src="qa-report-images/35-news-author.png" alt="تفاصيل خبر يظهر اسم المؤلف">
-      <figcaption>تفاصيل خبر: المؤلف يظهر حسب الحساب المرتبط بالمقال.</figcaption>
+      <figcaption>
+        <span class="cap-label ok">سليم — مش مشكلة</span><br>
+        داخل المقال: اسم المؤلف ظاهر حسب الحساب المرتبط بالخبر.
+      </figcaption>
     </figure>
 
     <h2>مشاكل الواجهة</h2>
@@ -438,6 +454,14 @@
     </div>
 
     <h2>ما تم إصلاحه في هذه الدورة</h2>
+    <div class="card fix-card">
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>إشعار نجاح نموذج التواصل</h3>
+      <p style="margin:0;">
+        كان الإشعار يظهر ملزوقًا (<code>nowSuccess</code>) والنقطة في أول الجملة بسبب اتجاه عربي على نص إنجليزي.
+        بقى عنوان واحد واضح: «Message sent»، والنص باتجاه إنجليزي ثابت.
+      </p>
+    </div>
     <div class="card fix-card" id="fix-forgot">
       <div class="badge fix">تم الإصلاح</div>
       <h3>نسيت كلمة المرور في لوحة التحكم</h3>
@@ -447,7 +471,10 @@
       </p>
       <figure class="evidence">
         <img src="qa-report-images/08-forgot-password.png" alt="صفحة نسيت كلمة المرور الجديدة">
-        <figcaption>الصفحة الجديدة: إدخال البريد وإرسال رابط العودة لتسجيل الدخول.</figcaption>
+        <figcaption>
+          <span class="cap-label fix">تم الإصلاح</span><br>
+          صفحة نسيت كلمة المرور الجديدة: الزائر يكتب الإيميل ويطلب رابط إعادة التعيين، ثم يرجع لتسجيل الدخول.
+        </figcaption>
       </figure>
     </div>
     <div class="card fix-card">
@@ -459,7 +486,10 @@
       </p>
       <figure class="evidence">
         <img src="qa-report-images/22-settings-email.png" alt="تبويب إعدادات البريد في لوحة التحكم">
-        <figcaption>مكان بيانات البريد: الخادم، المنفذ، المستخدم، كلمة المرور، عنوان واسم المرسل.</figcaption>
+        <figcaption>
+          <span class="cap-label fix">تم الإصلاح</span><br>
+          تبويب البريد في الإعدادات: هنا تتحط بيانات SMTP (الخادم، المنفذ، المستخدم، كلمة المرور، عنوان المرسل).
+        </figcaption>
       </figure>
     </div>
     <div class="card fix-card">
@@ -480,7 +510,10 @@
       </p>
       <figure class="evidence">
         <img src="qa-report-images/06-contact-ar.png" alt="صفحة اتصل بنا بالعربية بعد الترجمة">
-        <figcaption>اتصل بنا والنظام على العربية: العنوان والنموذج بالعربية.</figcaption>
+        <figcaption>
+          <span class="cap-label ok">لقطة شكل — مش مشكلة</span><br>
+          صفحة اتصل بنا لما اللغة عربية: العنوان وحقول النموذج بالعربي.
+        </figcaption>
       </figure>
     </div>
     <div class="card fix-card" id="note-placeholders">
@@ -492,7 +525,10 @@
       </p>
       <figure class="evidence">
         <img src="qa-report-images/12-footer-ar-fixed.png" alt="فوتر النسخة العربية بعد إزالة البيانات التجريبية">
-        <figcaption>الفوتر العربي: روابط قانونية تعمل، وبدون أرقام أو إيميل تجريبي.</figcaption>
+        <figcaption>
+          <span class="cap-label fix">تم الإصلاح</span><br>
+          الفوتر العربي بعد حذف أرقام وإيميل تجريبي. الروابط القانونية تشتغل.
+        </figcaption>
       </figure>
     </div>
     <div class="card fix-card" id="note-job">
@@ -503,7 +539,10 @@
       </p>
       <figure class="evidence">
         <img src="qa-report-images/18-career-details.png" alt="تفاصيل وظيفة بعد تصحيح الوصف والمكان">
-        <figcaption>تفاصيل الوظيفة: العنوان والوصف والمكان متوافقة.</figcaption>
+        <figcaption>
+          <span class="cap-label fix">تم الإصلاح</span><br>
+          تفاصيل وظيفة: العنوان والوصف والمكان (Remote) بقوا متطابقين.
+        </figcaption>
       </figure>
     </div>
     <div class="card fix-card" id="fix-tests">
@@ -538,83 +577,75 @@
     </div>
 
     <h2>لقطات من الموقع</h2>
-    <p class="muted">اضغط على أي صورة لعرضها بحجم أكبر.</p>
+    <p class="muted">دي صور شكل الصفحات فقط، مش قائمة مشاكل. اضغط أي صورة للتكبير.</p>
     <div class="gallery">
       <figure class="shot">
         <img src="qa-report-images/01-home-en.png" alt="الرئيسية بالإنجليزية">
-        <figcaption>الرئيسية — الإنجليزية</figcaption>
+        <figcaption>شكل الصفحة الرئيسية بالإنجليزية</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/02-home-ar.png" alt="الرئيسية بالعربية">
-        <figcaption>الرئيسية — العربية</figcaption>
+        <figcaption>شكل الصفحة الرئيسية بالعربية</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/03-lang-switcher.png" alt="زر تبديل اللغة">
-        <figcaption>تبديل اللغة (ع / EN)</figcaption>
+        <figcaption>زر تبديل اللغة بين العربية والإنجليزية</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/04-about-ar.png" alt="من نحن">
-        <figcaption>من نحن</figcaption>
+        <figcaption>شكل صفحة من نحن</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/05-blog-en.png" alt="المدونة">
-        <figcaption>المدونة</figcaption>
+        <figcaption>شكل صفحة المدونة</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/15-blog-details.png" alt="تفاصيل مقال">
-        <figcaption>تفاصيل مقال</figcaption>
+        <figcaption>شكل صفحة تفاصيل مقال</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/06-contact-ar.png" alt="اتصل بنا">
-        <figcaption>اتصل بنا</figcaption>
-      </figure>
-      <figure class="shot">
-        <img src="qa-report-images/31-contact-valid.png" alt="تواصل بعد الإرسال">
-        <figcaption>تواصل — إرسال صحيح</figcaption>
+        <figcaption>شكل صفحة اتصل بنا بالعربية</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/34-news-list.png" alt="الأخبار">
-        <figcaption>الأخبار / المدونة</figcaption>
+        <figcaption>شكل قائمة الأخبار بعد إضافة المحتوى</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/43-users-list.png" alt="المستخدمون">
-        <figcaption>المستخدمون في اللوحة</figcaption>
-      </figure>
-      <figure class="shot">
-        <img src="qa-report-images/16-contact-submitted.png" alt="نجاح إرسال رسالة">
-        <figcaption>رسالة التواصل وصلت</figcaption>
+        <figcaption>شكل قائمة المستخدمين في اللوحة</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/17-career-en.png" alt="الوظائف">
-        <figcaption>الوظائف</figcaption>
+        <figcaption>شكل صفحة الوظائف</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/19-case-study.png" alt="دراسة حالة">
-        <figcaption>دراسة حالة</figcaption>
+        <figcaption>شكل صفحة دراسة الحالة</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/13-privacy-ar.png" alt="سياسة الخصوصية">
-        <figcaption>سياسة الخصوصية</figcaption>
+        <figcaption>شكل صفحة سياسة الخصوصية</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/14-terms-en.png" alt="شروط الخدمة">
-        <figcaption>شروط الخدمة</figcaption>
+        <figcaption>شكل صفحة شروط الخدمة</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/07-dashboard-login.png" alt="دخول اللوحة">
-        <figcaption>دخول لوحة التحكم</figcaption>
+        <figcaption>شكل صفحة دخول لوحة التحكم</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/08-forgot-password.png" alt="نسيت كلمة المرور">
-        <figcaption>نسيت كلمة المرور — صفحة جديدة</figcaption>
+        <figcaption>شكل صفحة نسيت كلمة المرور</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/20-dashboard-home.png" alt="لوحة التحكم">
-        <figcaption>الصفحة الرئيسية للوحة</figcaption>
+        <figcaption>شكل الصفحة الرئيسية للوحة بعد الدخول</figcaption>
       </figure>
       <figure class="shot">
         <img src="qa-report-images/21-settings.png" alt="الإعدادات">
-        <figcaption>الإعدادات العامة</figcaption>
+        <figcaption>شكل الإعدادات العامة في اللوحة</figcaption>
       </figure>
     </div>
 
