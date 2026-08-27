@@ -1,13 +1,14 @@
-﻿# تقرير مراجعة موقع Sastik
+﻿# Sastik Website QA Report
 
-تقرير QA عربي مبسّط (HTML + لقطات شاشة).
+Plain-language QA report (HTML + screenshots) for the English-only Sastik website.
 
-**عرض مباشر عبر GitHub Pages** بعد التفعيل:
+**Live on GitHub Pages:**
 https://refineder.github.io/sastik-qa-report/
 
-**آخر تحديث:** 25 أغسطس 2026 (مراجعة شاملة + 121 اختبار برمجي ناجح + إصلاحات أمنية وتقنية)
+**Last update:** 27 August 2026 (rewritten in English after Arabic was removed from the product)
 
-## الملفات
+## Files
 
-- `index.html` — التقرير الرئيسي بالعربية (لصاحب المشروع)
-- `qa-report-images/` — صور العرض
+- `index.html` — main English report
+- `QA_REPORT_AR.html` — same English report (kept so older links still open)
+- `qa-report-images/` — screenshots
