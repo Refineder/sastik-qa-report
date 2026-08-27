@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sastik Website QA Report</title>
+  <title>تقرير مراجعة موقع Sastik</title>
   <style>
     :root {
       --bg: #f7f4ef;
@@ -24,7 +24,7 @@
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      font-family: "Segoe UI", Tahoma, "Noto Sans Arabic", Arial, sans-serif;
       background: var(--bg);
       color: var(--ink);
       line-height: 1.7;
@@ -48,8 +48,8 @@
       margin-top: 12px;
     }
     .status-pill.ok { background: var(--ok-bg); color: var(--ok); }
-    .status-pill.warn { background: var(--warn-bg); color: var(--warn); margin-left: 8px; }
-    .status-pill.fix { background: var(--fix-bg); color: var(--fix); margin-left: 8px; }
+    .status-pill.warn { background: var(--warn-bg); color: var(--warn); margin-right: 8px; }
+    .status-pill.fix { background: var(--fix-bg); color: var(--fix); margin-right: 8px; }
     .stats {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -142,7 +142,7 @@
     .lightbox-close {
       position: absolute;
       top: 18px;
-      right: 18px;
+      left: 18px;
       width: 42px;
       height: 42px;
       border: 0;
@@ -162,7 +162,7 @@
       overflow: hidden;
       border: 1px solid var(--line);
     }
-    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); }
+    th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--line); }
     th { background: #f0ebe3; }
     .ok { color: var(--ok); font-weight: 700; }
     .warn { color: var(--warn); font-weight: 700; }
@@ -170,7 +170,7 @@
     .muted { color: var(--muted); font-size: .92rem; }
     footer { margin-top: 40px; color: var(--muted); font-size: .9rem; }
     a { color: var(--accent); }
-    ul { margin: 8px 0 0; padding-left: 18px; }
+    ul { margin: 8px 0 0; padding-right: 18px; }
     li { margin-bottom: 6px; }
     .evidence { margin-top: 12px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
     .evidence img { width: 100%; display: block; max-height: 320px; object-fit: cover; object-position: top; cursor: zoom-in; }
@@ -180,477 +180,508 @@
 <body>
   <div class="wrap">
     <header class="hero">
-      <h1>Sastik Website QA Report</h1>
-      <p class="lead">A plain-language review: do the pages, buttons, and forms work? Are there visible layout problems?</p>
-      <p class="muted">Report date: Thursday, 27 August 2026 · English-only site · full review + Pest PHP tests + form trials + news by multiple authors · local environment: 127.0.0.1:8000</p>
-      <div class="status-pill ok">The site works as expected</div>
-      <div class="status-pill ok">121 automated tests passed — 0 failed</div>
-      <div class="status-pill fix">Security and technical fixes included</div>
-      <div class="status-pill warn">Two notes before launch</div>
+      <h1>تقرير مراجعة موقع Sastik</h1>
+      <p class="lead">تقرير مبسّط لغير المتخصصين: هل الصفحات والأزرار والنماذج تعمل؟ وهل توجد مشاكل ظاهرة في الشكل؟</p>
+      <p class="muted">تاريخ التقرير: الاثنين، ٢٥ أغسطس ٢٠٢٦ · مراجعة شاملة + اختبارات برمجية شاملة (Pest PHP) + تجارب النماذج + أخبار بمؤلفين مختلفين · البيئة المحلية: 127.0.0.1:8000</p>
+      <div class="status-pill ok">الموقع يعمل بشكل سليم</div>
+      <div class="status-pill ok">121 اختبار برمجي ناجح — 0 فشل</div>
+      <div class="status-pill fix">إصلاحات أمنية وتقنية جديدة</div>
+      <div class="status-pill warn">ملاحظتان قبل الإطلاق</div>
       <div class="stats">
-        <div class="stat"><strong>121</strong><span>automated tests passed</span></div>
-        <div class="stat"><strong>358</strong><span>assertions executed</span></div>
-        <div class="stat"><strong>15</strong><span>successful UI form trials</span></div>
-        <div class="stat"><strong>9</strong><span>users with mixed roles and statuses</span></div>
-        <div class="stat"><strong>0</strong><span>failed automated tests</span></div>
-        <div class="stat"><strong>0</strong><span>blocking usage issues</span></div>
+        <div class="stat"><strong>121</strong><span>اختبار برمجي ناجح</span></div>
+        <div class="stat"><strong>358</strong><span>عبارة تحقق مُنفّذة</span></div>
+        <div class="stat"><strong>15</strong><span>تجربة نموذج ناجحة من الواجهة</span></div>
+        <div class="stat"><strong>9</strong><span>مستخدم بأدوار وحالات مختلفة</span></div>
+        <div class="stat"><strong>0</strong><span>فشل في الاختبارات البرمجية</span></div>
+        <div class="stat"><strong>0</strong><span>مشكلة توقف الاستخدام</span></div>
       </div>
       <div class="card warn-card" style="margin-top:18px;margin-bottom:0;">
-        <p style="margin:0 0 8px;font-weight:700;color:var(--warn);">Remaining notes:</p>
-        <ol style="margin:0;padding-left:20px;">
-          <li><a href="#note-smtp">Dashboard mail settings are still empty — password-reset links will not reach a real inbox until they are filled in</a></li>
-          <li><a href="#note-payment">Pricing is display-only — there is no payment gateway</a></li>
+        <p style="margin:0 0 8px;font-weight:700;color:var(--warn);">الملاحظات المتبقية:</p>
+        <ol style="margin:0;padding-right:20px;">
+          <li><a href="#note-smtp">بيانات البريد في اللوحة ما زالت فارغة — الرابط لن يصل لصندوق الوارد الحقيقي حتى تُملأ</a></li>
+          <li><a href="#note-payment">الباقات للعرض فقط — لا توجد بوابة دفع</a></li>
         </ol>
       </div>
     </header>
 
-    <h2>Summary in plain words</h2>
+    <h2>الخلاصة بكلمات بسيطة</h2>
     <div class="card">
       <p>
-        The public site and dashboard were re-checked on 25 August 2026, then this published report was rewritten on 27 August 2026 to match the current product: <strong>English only</strong>.
-        Arabic is no longer a site language. <code>/ar</code> redirects to the English homepage, and <code>/en/...</code> URLs redirect to unprefixed English routes such as <code>/contact</code>.
+        أُعيد فحص الموقع ولوحة التحكم في ٢٥ أغسطس ٢٠٢٦: أضفنا <strong>121 اختبار برمجي شامل</strong> يغطي
+        تسجيل الدخول، التحقق من الأدوار، حماية كلمات المرور، آليات الحماية من القوة الغاشمة، نماذج الموقع،
+        إعدادات الثيم، الصفحات القانونية، الإمكانية الوصولية (Accessibility)، وال modelos (Blog, SystemSetting, ContactMessage, BlockedIp, NewsletterSubscriber).
       </p>
       <p>
-        The review added <strong>121 automated tests</strong> covering login, roles, password rules, brute-force protection, website forms, theme settings, legal pages, accessibility, and models (Blog, SystemSetting, ContactMessage, BlockedIp, NewsletterSubscriber).
-      </p>
-      <p>
-        Result: <strong>121 passed, 0 failed, 358 assertions</strong>. Each test checks real behaviour on the site or dashboard.
+        النتيجة: <strong>121 اختبار ناجح، 0 فشل، 358 عبارة تحقق</strong>. كل اختبار يتحقق من سلوك حقيقي في الموقع أو اللوحة.
       </p>
       <ul>
-        <li>Security hardening: removed leftover <code>dd()</code>, fixed session fixation, disabled <code>APP_DEBUG</code>, and added API rate limiting.</li>
-        <li>HTML and accessibility fixes: sidebar, mobile menu buttons, and form labels.</li>
-        <li>Moved database queries from <code>render()</code> to <code>mount()</code> in blog and legal-page components.</li>
-        <li>The <code>HasTranslatableSlug</code> trait works with both SQLite and MySQL. Only English is active.</li>
-        <li>The visitor theme is Help Desk (LTR).</li>
-        <li>Dashboard forgot-password is a real page that sends a reset link.</li>
-        <li>Until SMTP is filled in under Settings → Email, the message will not reach a real inbox.</li>
-        <li>Local load test: 2,350 requests. Up to 60 concurrent visitors, pages still returned HTTP 200.</li>
+        <li>كود الموقع مُحسّن أمنياً: إزالة dd() وتصحيح session fixation وتعطيل APP_DEBUG و rate limiting على مسارات API.</li>
+        <li>إصلاحات HTML و ACCESSIBILITY: شريط الجانبي، أزرار القائمة المتنقلة، تحسين النماذج.</li>
+        <li>نقل استعلامات قاعدة البيانات من render() إلى mount() في مكونات المدونة والصفحات القانونية.</li>
+        <li>Make:Trait <code>HasTranslatableSlug</code> أصبح متوافقاً مع SQLite و MySQL معاً.</li>
+        <li>الثيم الحالي المعروض للزائر هو مكتب المساعدة (Help Desk)، بالاتجاهين.</li>
+        <li>نسيت كلمة المرور في دخول اللوحة أصبحت صفحة حقيقية ترسل رابط إعادة التعيين.</li>
+        <li>حتى يصل الإيميل لصندوق الوارد، لازم تتعبّى بيانات SMTP من الإعدادات ← البريد.</li>
+        <li>اختبار ضغط محلي: 2350 طلب. حتى 60 زائر متزامن الصفحات ترجع 200.</li>
       </ul>
     </div>
 
-    <h2>Test results</h2>
-    <div class="ok-box">From the UI: 15 passed, 4 warnings, 0 failures. Automated tests (Pest PHP): 121 passed, 0 failed. Core forms reject bad input and accept valid input.</div>
-    <p class="muted">Each row is a real UI attempt (clicks and typed data), plus an automated test for the same behaviour.</p>
+    <h2>نتائج الاختبارات</h2>
+    <div class="ok-box">من الواجهة: 15 ناجح و 4 تنبيهات و 0 فشل. الاختبارات البرمجية (Pest PHP): 121 ناجح و 0 فشل. النماذج الأساسية ترفض الغلط وتقبل الصحيح.</div>
+    <p class="muted">كل صف = محاولة من الواجهة الحقيقية (ضغط أزرار وإدخال بيانات)، مع اختبار برمجي إضافي للنفس السلوك.</p>
     <table>
       <thead>
-        <tr><th>Form</th><th>Invalid attempt</th><th>Valid attempt</th></tr>
+        <tr><th>النموذج</th><th>محاولة غلط</th><th>محاولة صحيحة</th></tr>
       </thead>
       <tbody>
-        <tr><td>Contact</td><td class="ok">Empty and invalid email → visible error</td><td class="ok">Name + valid email + message → sent</td></tr>
-        <tr><td>Job application</td><td class="ok">Empty submit → required fields rejected</td><td class="ok">Details + resume file → application received</td></tr>
-        <tr><td>Newsletter</td><td class="ok">Invalid email rejected (automated)</td><td class="ok">Valid email saved</td></tr>
-        <tr><td>Dashboard login</td><td class="ok">Empty / unknown email / wrong password / inactive account → rejected</td><td class="ok">super_admin@refineders.com / password → signed in</td></tr>
-        <tr><td>Forgot password</td><td class="ok">Empty / bad email / unknown email → rejected</td><td class="warn">Known email, but SMTP empty → nothing reaches the inbox</td></tr>
-        <tr><td>Add user from dashboard</td><td class="ok">Empty fields and short password rejected (automated)</td><td class="ok">Valid user created (automated). Browser automation against the modal was unstable</td></tr>
-        <tr><td>Add news from dashboard</td><td class="ok">Empty English title rejected (automated)</td><td class="ok">News created via seed data with different authors</td></tr>
+        <tr><td>تواصل معنا</td><td class="ok">فارغ وبريد غير صالح → رسالة خطأ ظاهرة</td><td class="ok">الاسم + بريد صحيح + رسالة → تم الإرسال</td></tr>
+        <tr><td>التقديم على وظيفة</td><td class="ok">إرسال فارغ → الحقول المطلوبة تُرفض</td><td class="ok">بيانات + ملف سيرة → الطلب وصل</td></tr>
+        <tr><td>نشرة البريد</td><td class="ok">بريد غير صالح يُرفض (اختبار برمجي)</td><td class="ok">بريد صحيح يُحفظ</td></tr>
+        <tr><td>دخول اللوحة</td><td class="ok">فارغ / إيميل غير موجود / كلمة غلط / حساب معطّل → يُرفض</td><td class="ok">super_admin@refineders.com / password → دخل اللوحة</td></tr>
+        <tr><td>نسيت كلمة المرور</td><td class="ok">فارغ / بريد غلط / إيميل غير موجود → يُرفض</td><td class="warn">إيميل موجود لكن SMTP فارغ → لا يُرسل للوارد</td></tr>
+        <tr><td>إضافة مستخدم من اللوحة</td><td class="ok">الحقول الفارغة وكلمة قصيرة تُرفض (اختبار برمجي)</td><td class="ok">مستخدم صحيح يُنشأ (اختبار برمجي). من المتصفح الآلي الربط مع المودال كان غير ثابت</td></tr>
+        <tr><td>إضافة خبر من اللوحة</td><td class="ok">عنوان عربي/إنجليزي فارغ يُرفض (اختبار برمجي)</td><td class="ok">الأخبار أُنشئت عبر البيانات الأولية بمؤلفين مختلفين</td></tr>
       </tbody>
     </table>
     <figure class="evidence">
-      <img src="qa-report-images/16-contact-submitted.png" alt="English contact form after a successful send">
-      <figcaption>Contact (English): a valid message shows a success notice.</figcaption>
+      <img src="qa-report-images/16-contact-submitted.png" alt="نموذج التواصل بالإنجليزية بعد الإرسال">
+      <figcaption>تواصل إنجليزي: إرسال صحيح يظهر رسالة نجاح على النموذج الإنجليزي.</figcaption>
     </figure>
     <figure class="evidence">
-      <img src="qa-report-images/36-login-invalid.png" alt="Dashboard login with empty fields">
-      <figcaption>Dashboard login: email and password are required.</figcaption>
+      <img src="qa-report-images/36-login-invalid.png" alt="دخول اللوحة بحقول فارغة">
+      <figcaption>دخول اللوحة: البريد وكلمة المرور مطلوبان.</figcaption>
     </figure>
     <figure class="evidence">
-      <img src="qa-report-images/38-forgot-known.png" alt="Forgot password for a known email with empty SMTP">
-      <figcaption>Forgot password for the admin email: the link is not sent because mail server settings are incomplete.</figcaption>
+      <img src="qa-report-images/38-forgot-known.png" alt="نسيت كلمة المرور لإيميل موجود بدون SMTP">
+      <figcaption>نسيت كلمة المرور لإيميل المدير: الرابط لا يُرسل لأن خادم البريد غير مكتمل.</figcaption>
     </figure>
 
-    <h2>Load test (high volume)</h2>
+    <h2>اختبار الضغط (أعداد كبيرة)</h2>
     <p class="muted">
-      The local site at 127.0.0.1:8000 was pressed with thousands of concurrent requests on public pages (home, blog, contact, careers, about, team, legal, dashboard login).
-      The development server <code>php artisan serve</code> handles one request at a time; production Nginx/PHP-FPM is different.
+      ضُغط الموقع المحلي 127.0.0.1:8000 بآلاف الطلبات المتزامنة على الصفحات العامة (رئيسية، مدونة، تواصل، وظائف، من نحن، فريق، قانونية، دخول اللوحة) بالعربي والإنجليزي.
+      سيرفر التطوير <code>php artisan serve</code> يعالج طلباً واحداً في اللحظة؛ الإنتاج بـ Nginx/PHP-FPM يختلف.
     </p>
-    <div class="ok-box">2,350 requests in total: 2,039 succeeded (86.8%). Completed requests returned HTTP 200 with no server error. The remaining 311 were wait timeouts, not a site crash.</div>
+    <div class="ok-box">2350 طلباً إجمالاً: 2039 نجحوا (86.8٪). الطلبات المكتملة رجعت HTTP 200 من غير خطأ سيرفر. الـ 311 المتبقية مهلة انتظار، مش انهيار للموقع.</div>
     <table>
       <thead>
-        <tr><th>Wave</th><th>Requests</th><th>Concurrent</th><th>OK</th><th>Failed</th><th>Speed</th><th>p95 time</th></tr>
+        <tr><th>الموجة</th><th>الطلبات</th><th>متزامن</th><th>نجاح</th><th>فشل</th><th>السرعة</th><th>زمن 95٪</th></tr>
       </thead>
       <tbody>
-        <tr><td>Warm-up</td><td>200</td><td>20</td><td class="ok">200</td><td>0</td><td>3.8 req/s</td><td>5.8 s</td></tr>
-        <tr><td>Medium load</td><td>1200</td><td>50</td><td class="ok">1200</td><td>0</td><td>3.6 req/s</td><td>15.7 s</td></tr>
-        <tr><td>Heavy load</td><td>400</td><td>60</td><td class="ok">400</td><td>0</td><td>3.9 req/s</td><td>16.0 s</td></tr>
-        <tr><td>Burst</td><td>400</td><td>120</td><td class="ok">95</td><td class="warn">305 timeout</td><td>4.7 req/s</td><td>25 s (cut off)</td></tr>
-        <tr><td>Click storm (30 visitors × 5 pages)</td><td>150</td><td>15</td><td class="ok">144</td><td class="warn">6 timeout</td><td>2.3 req/s</td><td>24.6 s</td></tr>
+        <tr><td>إحماء</td><td>200</td><td>20</td><td class="ok">200</td><td>0</td><td>3.8 طلب/ث</td><td>5.8 ث</td></tr>
+        <tr><td>ضغط متوسط</td><td>1200</td><td>50</td><td class="ok">1200</td><td>0</td><td>3.6 طلب/ث</td><td>15.7 ث</td></tr>
+        <tr><td>ضغط ثقيل</td><td>400</td><td>60</td><td class="ok">400</td><td>0</td><td>3.9 طلب/ث</td><td>16.0 ث</td></tr>
+        <tr><td>دفعة مفاجئة</td><td>400</td><td>120</td><td class="ok">95</td><td class="warn">305 مهلة</td><td>4.7 طلب/ث</td><td>25 ث (قطع)</td></tr>
+        <tr><td>عاصفة نقرات (30 زائر × 5 صفحات)</td><td>150</td><td>15</td><td class="ok">144</td><td class="warn">6 مهلة</td><td>2.3 طلب/ث</td><td>24.6 ث</td></tr>
       </tbody>
     </table>
     <div class="card warn-card" id="note-load">
-      <div class="badge warn">Local-environment note</div>
-      <h3>The 305 burst timeouts are not a code crash</h3>
+      <div class="badge warn">تنبيه بيئة محلية</div>
+      <h3>305 مهلة في الدفعة المفاجئة ليست عطل كود</h3>
       <p style="margin:0 0 8px;">
-        A timeout means the local server did not answer within 25 seconds because <code>php artisan serve</code> handles one request at a time and the rest queue.
-        The 95 requests that finished returned 200. The site did not return HTTP 500.
+        المهلة تعني أن السيرفر المحلي ما ردّش خلال 25 ثانية لأن <code>php artisan serve</code> يعالج طلباً واحداً في اللحظة والباقي يصطف.
+        الـ 95 طلب اللي لحقت اكتملت رجعت 200. الموقع ما طلعش خطأ 500.
       </p>
       <p style="margin:0;">
-        On real hosting (Nginx/PHP-FPM with several workers) the same 120 visitors would not form that queue.
-        This marketing site <strong>does not need a large performance project now</strong>. After go-live, run a short check and add cache only if real slowness appears there.
+        على استضافة حقيقية (Nginx/PHP-FPM بعدة عمليات) نفس الـ 120 زائر لا يعملوا الطابور ده.
+        الموقع التعريفي <strong>لا يحتاج مشروع تحسين كبير الآن</strong>. بعد الرفع على السيرفر الحقيقي تُعاد تجربة سريعة، ويُضاف كاش فقط لو ظهر بطء فعلي هناك.
       </p>
     </div>
 
-    <h2>Users and news</h2>
+    <h2>المستخدمون والأخبار</h2>
     <div class="card">
-      <p><strong>9 accounts</strong> were created with password <code>password</code> to test roles and statuses:</p>
+      <p>أُنشئ <strong>9 حسابات</strong> بكلمة المرور <code>password</code> لاختبار الأدوار والحالات:</p>
       <ul>
-        <li>Super admin: super_admin@refineders.com</li>
-        <li>Admin: admin@refineders.com (Mona)</li>
-        <li>News writers: Nora Writer, Karim Editor, Layla Hassan</li>
-        <li>Extra users: Omar QA, Sara Ali</li>
-        <li>Inactive account: inactive.user@refineders.com — login is rejected</li>
-        <li>Unverified email: unverified.user@refineders.com</li>
+        <li>مدير عام: super_admin@refineders.com</li>
+        <li>مدير: admin@refineders.com (منى)</li>
+        <li>كتّاب أخبار: Nora Writer، Karim Editor، Layla Hassan</li>
+        <li>مستخدمان إضافيان: Omar QA، Sara Ali</li>
+        <li>حساب معطّل: inactive.user@refineders.com — الدخول يُرفض</li>
+        <li>حساب غير مفعّل البريد: unverified.user@refineders.com</li>
       </ul>
-      <p>The dashboard users list shows role “user” accounts (7 rows). Admins appear on the admins screen.</p>
+      <p>قائمة المستخدمين في اللوحة تعرض حسابات دور «مستخدم» (7 صفوف). المديرون يظهرون في شاشة المدراء.</p>
     </div>
     <figure class="evidence">
-      <img src="qa-report-images/43-users-list.png" alt="Users list in the dashboard">
-      <figcaption>User management: writers and active/inactive statuses after the accounts were created.</figcaption>
+      <img src="qa-report-images/43-users-list.png" alt="قائمة المستخدمين في لوحة التحكم">
+      <figcaption>إدارة المستخدمين: كتّاب وحالات active/inactive بعد إنشاء الحسابات.</figcaption>
     </figure>
     <div class="card">
-      <p><strong>10 articles/news items</strong> were added on <code>/blog</code>, including 4 new News-category items by different authors:</p>
+      <p>أُضيفت <strong>10 مقالات/أخبار</strong> على <code>/en/blog</code> و<code>/ar/blog</code>، منها 4 أخبار جديدة في تصنيف News، بمؤلفين مختلفين:</p>
       <ul>
-        <li>Nora Writer — product growth + August 2026 news</li>
-        <li>Karim Editor — retention + support story</li>
-        <li>Layla Hassan — automation + help-desk stories</li>
-        <li>Mona Admin / Super Admin — pricing and setup</li>
+        <li>Nora Writer — نمو المنتج + خبر أغسطس 2026</li>
+        <li>Karim Editor — الاحتفاظ + خبر الدعم ثنائي اللغة</li>
+        <li>Layla Hassan — الأتمتة + قصص مكتب المساعدة</li>
+        <li>Mona Admin / Super Admin — التسعير والإعداد</li>
       </ul>
     </div>
     <figure class="evidence">
-      <img src="qa-report-images/34-news-list.png" alt="News and blog listing">
-      <figcaption>Blog/news page after content was added.</figcaption>
+      <img src="qa-report-images/34-news-list.png" alt="قائمة الأخبار والمدونة">
+      <figcaption>صفحة المدونة/الأخبار بعد إضافة المحتوى.</figcaption>
     </figure>
     <figure class="evidence">
-      <img src="qa-report-images/35-news-author.png" alt="News details showing the author name">
-      <figcaption>News details: the author matches the account linked to the article.</figcaption>
+      <img src="qa-report-images/35-news-author.png" alt="تفاصيل خبر يظهر اسم المؤلف">
+      <figcaption>تفاصيل خبر: المؤلف يظهر حسب الحساب المرتبط بالمقال.</figcaption>
     </figure>
 
-    <h2>Interface issues</h2>
-    <div class="ok-box">No failures stop browsing the public site or the dashboard. Core pages and buttons work.</div>
+    <h2>مشاكل الواجهة</h2>
+    <div class="ok-box">لا توجد أعطال توقف تصفّح الموقع أو لوحة التحكم. الصفحات والأزرار الأساسية تعمل.</div>
 
-    <h2>Automated tests (121 tests)</h2>
+    <h2>الاختبارات البرمجية الشاملة (121 اختبار)</h2>
     <p class="muted">
-      A full Pest PHP 4 suite covers the site. Each test checks real behaviour against an in-memory SQLite database.
-      Results: <strong>121 passed, 0 failed, 358 assertions</strong>.
+      أُنشئت مجموعة اختبارات شاملة باستخدام Pest PHP 4 تغطي كل جوانب الموقع. كل اختبار يتحقق من سلوك حقيقي
+      باستخدام قاعدة بيانات SQLite في الذاكرة (سريعة وموثوقة). النتائج: <strong>121 ناجح، 0 فشل، 358 عبارة تحقق</strong>.
     </p>
 
-    <h3>Login and security (LoginComponent)</h3>
+    <h3>تسجيل الدخول والأمان (LoginComponent)</h3>
     <table>
       <thead>
-        <tr><th>Test</th><th>Status</th><th>What it checks</th></tr>
+        <tr><th>الاختبار</th><th>الحالة</th><th>ما يتحقق منه</th></tr>
       </thead>
       <tbody>
-        <tr><td>Reject empty fields</td><td class="ok">Pass</td><td>Email and password are required</td></tr>
-        <tr><td>Reject invalid email format</td><td class="ok">Pass</td><td>“not-an-email” is rejected</td></tr>
-        <tr><td>Reject unknown email</td><td class="ok">Pass</td><td>Unregistered email is rejected</td></tr>
-        <tr><td>Reject wrong password</td><td class="ok">Pass</td><td>Incorrect password is rejected</td></tr>
-        <tr><td>Reject inactive account</td><td class="ok">Pass</td><td>Inactive account is rejected</td></tr>
-        <tr><td>Accept valid credentials</td><td class="ok">Pass</td><td>super_admin reaches the dashboard</td></tr>
-        <tr><td>Lock after 5 failed attempts</td><td class="ok">Pass</td><td>Account locks after 5 failures</td></tr>
-        <tr><td>Reset counter after success</td><td class="ok">Pass</td><td>Counter returns to zero after a valid login</td></tr>
-        <tr><td>Password length (8 characters minimum)</td><td class="ok">Pass</td><td>Fewer than 8 characters is rejected</td></tr>
-        <tr><td>Unified error message</td><td class="ok">Pass</td><td>One message for wrong email or password (does not reveal which)</td></tr>
+        <tr><td>رفض الحقول الفارغة</td><td class="ok">ناجح</td><td>البريد وكلمة المرور مطلوبان</td></tr>
+        <tr><td>رفض صيغة البريد غير الصحيحة</td><td class="ok">ناجح</td><td>「not-an-email」 يُرفض</td></tr>
+        <tr><td>رفض البريد غير الموجود</td><td class="ok">ناجح</td><td>بريد غير مسجّل يُرفض</td></tr>
+        <tr><td>رفض كلمة المرور الخاطئة</td><td class="ok">ناجح</td><td>كلمة غير صحيحة تُرفض</td></tr>
+        <tr><td>رفض الحساب المعطّل</td><td class="ok">ناجح</td><td>حساب inactive يُرفض</td></tr>
+        <tr><td>قبول بيانات صحيحة</td><td class="ok">ناجح</td><td>super_admin يدخل اللوحة</td></tr>
+        <tr><td>قفل بعد 5 محاولات فاشلة</td><td class="ok">ناجح</td><td>الحساب يُقفل بعد 5 محاولات فاشلة</td></tr>
+        <tr><td>إعادة تعيين العدّاد بعد نجاح</td><td class="ok">ناجح</td><td>بعد الدخول الصحيح العدّاد يرجع لصفر</td></tr>
+        <tr><td>التحقق من كلمة المرور (٨ أحرف كحد أدنى)</td><td class="ok">ناجح</td><td>كلمة أقل من ٨ أحرف تُرفض</td></tr>
+        <tr><td>رسالة خطأ موحّدة</td><td class="ok">ناجح</td><td>رسالة واحدة للبريد أو كلمة خاطئة (لا تكشف أيهما)</td></tr>
       </tbody>
     </table>
 
-    <h3>Permissions and roles (Authorization)</h3>
+    <h3>الصلاحيات والأدوار (Authorization)</h3>
     <table>
       <thead>
-        <tr><th>Test</th><th>Status</th><th>What it checks</th></tr>
+        <tr><th>الاختبار</th><th>الحالة</th><th>ما يتحقق منه</th></tr>
       </thead>
       <tbody>
-        <tr><td>Super admin reaches all sections</td><td class="ok">Pass</td><td>super_admin reaches home, analytics, and settings</td></tr>
-        <tr><td>Regular user cannot reach admin sections</td><td class="ok">Pass</td><td>“user” role gets 403</td></tr>
-        <tr><td>Regular user can open their profile</td><td class="ok">Pass</td><td>Profile is open to all signed-in users</td></tr>
-        <tr><td>Admin reaches home but not admins</td><td class="ok">Pass</td><td>admin cannot open the admins section (super_admin only)</td></tr>
-        <tr><td>Admin without permission cannot open the section</td><td class="ok">Pass</td><td>content_editor cannot open news without view_blogs</td></tr>
-        <tr><td>Admin with permission can open the section</td><td class="ok">Pass</td><td>admin with view_blogs can open news</td></tr>
-        <tr><td>Guest is redirected to login</td><td class="ok">Pass</td><td>Dashboard links redirect to /login</td></tr>
+        <tr><td>مدير عام يصل كل الأقسام</td><td class="ok">ناجح</td><td>super_admin يصل الرئيسية والتحليلات والإعدادات</td></tr>
+        <tr><td>مستخدم عادي لا يصل أقسام الإدارة</td><td class="ok">ناجح</td><td>دور «user» يحصل على 403</td></tr>
+        <tr><td>مستخدم عادي يصل ملفه الشخصي</td><td class="ok">ناجح</td><td>الملف الشخصي مفتوح للكل</td></tr>
+        <tr><td>مدير يصل Главная لكن ليس المدراء</td><td class="ok">ناجح</td><td>admin لا يصل قسم المدراء (super_admin فقط)</td></tr>
+        <tr><td>مدير بدون صلاحية لا يصل القسم</td><td class="ok">ناجح</td><td>content_editor لا يصل الأخبار بدون view_blogs</td></tr>
+        <tr><td>مدير بصلاحية يصل القسم</td><td class="ok">ناجح</td><td>admin مع view_blogs يصل الأخبار</td></tr>
+        <tr><td>غير مسجّل يُحوّل لصفحة الدخول</td><td class="ok">ناجح</td><td>كل روابط اللوحة تُحوّل لـ /login</td></tr>
       </tbody>
     </table>
 
-    <h3>Website pages</h3>
+    <h3>صفحات الموقع (Website Pages)</h3>
     <table>
       <thead>
-        <tr><th>Page</th><th>Status</th><th>Check</th></tr>
+        <tr><th>الصفحة</th><th>الحالة</th><th>التحقق</th></tr>
       </thead>
       <tbody>
-        <tr><td>Home / Team / About / Careers / Contact</td><td class="ok">200</td><td>All open without error</td></tr>
-        <tr><td>Blog + article details</td><td class="ok">200</td><td>Articles show the correct content</td></tr>
-        <tr><td>Privacy policy + terms of service</td><td class="ok">200</td><td>Both legal pages open</td></tr>
-        <tr><td>404 preview</td><td class="ok">200</td><td>Error preview page opens</td></tr>
-        <tr><td>Unknown URL</td><td class="ok">404</td><td>Random path returns 404</td></tr>
-        <tr><td>Inactive news item</td><td class="ok">404</td><td>Inactive news is hidden</td></tr>
-        <tr><td>Future-dated news item</td><td class="ok">404</td><td>Future news is hidden</td></tr>
-        <tr><td>Meta tags</td><td class="ok">Pass</td><td>charset + viewport meta are present</td></tr>
-        <tr><td>Contact form on the page</td><td class="ok">Pass</td><td>wire:submit is present</td></tr>
+        <tr><td>الرئيسية / الفريق / من نحن / الوظائف / التواصل</td><td class="ok">200</td><td>كلها تفتح بدون خطأ</td></tr>
+        <tr><td>المدونة + تفاصيل مقال</td><td class="ok">200</td><td>المقالات تظهر بالمحتوى الصحيح</td></tr>
+        <tr><td>سياسة الخصوصية + شروط الخدمة</td><td class="ok">200</td><td>صفحتان قانونيتان تفتحان</td></tr>
+        <tr><td>خطأ 404</td><td class="ok">200</td><td>صفحة معاينة الخطأ تفتح</td></tr>
+        <tr><td>صفحة غير موجودة</td><td class="ok">404</td><td>رابط عشوائي يرجع 404</td></tr>
+        <tr><td>خبر غير نشط</td><td class="ok">404</td><td>خبر inactive لا يظهر</td></tr>
+        <tr><td>خبر مستقبلي</td><td class="ok">404</td><td>خبر بتاريخ مستقبلي لا يظهر</td></tr>
+        <tr><td>الوسوم (meta tags)</td><td class="ok">ناجح</td><td>charset + viewport meta موجودة</td></tr>
+        <tr><td>نموذج التواصل على الصفحة</td><td class="ok">ناجح</td><td>wire:submit موجود</td></tr>
       </tbody>
     </table>
 
-    <h3>Accessibility</h3>
+    <h3>إمكانية الوصولية (Accessibility)</h3>
     <table>
       <thead>
-        <tr><th>Check</th><th>Status</th><th>Detail</th></tr>
+        <tr><th>الفحص</th><th>الحالة</th><th>التحقق</th></tr>
       </thead>
       <tbody>
-        <tr><td>Images have alt text</td><td class="ok">Pass</td><td>Home images include alt=</td></tr>
-        <tr><td>Forms have matching labels</td><td class="ok">Pass</td><td>Each contact field has a matching label for</td></tr>
-        <tr><td>Newsletter has aria-label</td><td class="ok">Pass</td><td>Newsletter includes aria attributes</td></tr>
-        <tr><td>Sidebar HTML is valid</td><td class="ok">Pass</td><td>id does not start with #</td></tr>
-        <tr><td>Dashboard page has lang=en</td><td class="ok">Pass</td><td>lang attribute is correct</td></tr>
-        <tr><td>Content includes aria-</td><td class="ok">Pass</td><td>Home has accessible elements</td></tr>
+        <tr><td>الصور تحتوي على alt</td><td class="ok">ناجح</td><td>كل صور الرئيسية بها alt=</td></tr>
+        <tr><td>النماذج بها label مربوطة</td><td class="ok">ناجح</td><td>كل حقل contact له label for متطابق</td></tr>
+        <tr><td>النشرة البريدية بها aria-label</td><td class="ok">ناجح</td><td>Newsletter يحتوي على aria attributes</td></tr>
+        <tr><td>شريط الجانبي HTML صحيح</td><td class="ok">ناجح</td><td>id بدون # في البداية</td></tr>
+        <tr><td>صفحة اللوحة بها lang=en</td><td class="ok">ناجح</td><td>lang attribute صحيح</td></tr>
+        <tr><td>محتوى يحتوي على aria-</td><td class="ok">ناجح</td><td>الرئيسية بها عناصر accessible</td></tr>
       </tbody>
     </table>
 
-    <h3>Models and helpers</h3>
+    <h3>الموديلات والمعاملات (Models & Traits)</h3>
     <table>
       <thead>
-        <tr><th>Component</th><th>Tests</th><th>Status</th></tr>
+        <tr><th>المكون</th><th>الاختبارات</th><th>الحالة</th></tr>
       </thead>
       <tbody>
-        <tr><td>SystemSetting</td><td>Cache, findCachedByKey, clearCache, types</td><td class="ok">5 passed</td></tr>
-        <tr><td>Blog</td><td>scopeActive, scopePublished, detailsUrl, slug()</td><td class="ok">4 passed</td></tr>
-        <tr><td>ContactMessage</td><td>Create, read/unread, delete</td><td class="ok">5 passed</td></tr>
-        <tr><td>BlockedIp</td><td>Create, active scope</td><td class="ok">2 passed</td></tr>
-        <tr><td>NewsletterSubscriber</td><td>Create, unique email</td><td class="ok">2 passed</td></tr>
-        <tr><td>SettingsHelper</td><td>Settings helpers + hex_to_hue + rgb + CSS</td><td class="ok">11 passed</td></tr>
+        <tr><td>SystemSetting</td><td>Cache، findCachedByKey، clearCache، الأنواع</td><td class="ok">5 ناجح</td></tr>
+        <tr><td>Blog</td><td>scopeActive، scopePublished، detailsUrl، slug()</td><td class="ok">4 ناجح</td></tr>
+        <tr><td>ContactMessage</td><td>إنشاء، read/unread، حذف</td><td class="ok">5 ناجح</td></tr>
+        <tr><td>BlockedIp</td><td>إنشاء، active scope</td><td class="ok">2 ناجح</td></tr>
+        <tr><td>NewsletterSubscriber</td><td>إنشاء، فريد البريد</td><td class="ok">2 ناجح</td></tr>
+        <tr><td>SettingsHelper</td><td>كل دوال الإعدادات + hex_to_hue + rgb + CSS</td><td class="ok">11 ناجح</td></tr>
       </tbody>
     </table>
 
-    <h3>Important technical fixes</h3>
+    <h3>إصلاحات تقنية مهمة</h3>
     <div class="card fix-card">
-      <div class="badge fix">Security + technical fix</div>
-      <h3>Liability and security (added in this cycle)</h3>
+      <div class="badge fix">إصلاح أمني + تقني</div>
+      <h3>إصلاحات Liability & Security (أُضيفت في هذه الدورة)</h3>
       <ul style="margin:0;">
-        <li><strong>Removed dd()</strong> from LoginComponent — it would halt the app in production</li>
-        <li><strong>Session fixation fix</strong> in LogoutComponent — added invalidate() and regenerateToken()</li>
-        <li><strong>APP_DEBUG disabled</strong> — error details are not shown to visitors</li>
-        <li><strong>Rate limiting</strong> on API routes (throttle:10,1)</li>
-        <li><strong>Upload throttle</strong> in Livewire (60 requests/minute)</li>
-        <li><strong>AuthRedirect middleware</strong> now checks the route name instead of a sliced path string</li>
-        <li><strong>Blocked IP cache</strong> — 5-minute cache instead of a query on every request</li>
-        <li><strong>Unified error message</strong> — does not reveal whether email or password was wrong</li>
-        <li><strong>Password minimum 8 characters</strong> — previously 6</li>
-        <li><strong>Sanctum expiration = 1440 minutes</strong> (24 hours)</li>
-        <li><strong>SESSION_ENCRYPT=true</strong> — session data is encrypted</li>
-        <li><strong>Moved DB queries from render() to mount()</strong> — BlogDetailComponent and LegalPageComponent</li>
-        <li><strong>HasTranslatableSlug works with SQLite and MySQL</strong> — json_extract instead of JSON_UNQUOTE</li>
-        <li><strong>Removed console.log</strong> from dashboard JavaScript</li>
-        <li><strong>HTML fixes</strong> — sidebar, mobile menu buttons, aria attributes</li>
+        <li><strong>إزالة dd()</strong> من LoginComponent — كان يوقف التطبيق في بيئة الإنتاج</li>
+        <li><strong>تصحيح Session Fixation</strong> في LogoutComponent — إضافة invalidate() وregenerateToken()</li>
+        <li><strong>تعطيل APP_DEBUG</strong> — لا يكشف تفاصيل الأخطاء للزوار</li>
+        <li><strong>Rate Limiting</strong> على API routes (throttle:10,1)</li>
+        <li><strong>Throttle على Uploads</strong> في Livewire (60 طلب/دقيقة)</li>
+        <li><strong>Refactoring AuthRedirect middleware</strong> — يتحقق من اسم المسار بدل نص مقطّع</li>
+        <li><strong>Cache لـ BlockedIps</strong> — 5 دقائق كاش بدل استعلام كل طلب</li>
+        <li><strong>رسالة خطأ موحّدة</strong> — لا تكشف إن كان البريد أو كلمة المرور خاطئة</li>
+        <li><strong>كلمة مرور ٨ أحرف كحد أدنى</strong> — كانت ٦</li>
+        <li><strong>_sanctum expiration = 1440 دقيقة</strong> (٢٤ ساعة)</li>
+        <li><strong>SESSION_ENCRYPT=true</strong> — تشفير بيانات الجلسة</li>
+        <li><strong>نقل DB queries من render() إلى mount()</strong> — BlogDetailComponent و LegalPageComponent</li>
+        <li><strong>HasTranslatableSlug متوافق مع SQLite و MySQL</strong> — json_extract بدل JSON_UNQUOTE</li>
+        <li><strong>إزالة console.log</strong> من JavaScript في لوحة التحكم</li>
+        <li><strong>إصلاح HTML</strong> — شريط الجانبي، أزرار القائمة المتنقلة، إضافة aria attributes</li>
       </ul>
     </div>
 
-    <h2>Fixed in this cycle</h2>
-    <div class="card fix-card" id="fix-locale">
-      <div class="badge fix">Updated</div>
-      <h3>Arabic locale removed — site is English only</h3>
-      <p style="margin:0;">
-        Arabic is no longer a supported language. Locale config is English only, Arabic translation files were removed,
-        and <code>/ar</code> redirects to the English site. This report was rewritten in English and older Arabic UI screenshots were retired.
-      </p>
-    </div>
+    <h2>ما تم إصلاحه في هذه الدورة</h2>
     <div class="card fix-card" id="fix-forgot">
-      <div class="badge fix">Fixed</div>
-      <h3>Forgot password in the dashboard</h3>
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>نسيت كلمة المرور في لوحة التحكم</h3>
       <p style="margin:0;">
-        The link was decorative and opened nothing. It now opens an email form, sends a reset link,
-        and has a page to set a new password. Sending uses the mail settings stored in the dashboard (not only the server file).
+        الرابط كان شكلياً ولا يفتح شيئاً. أصبح يفتح صفحة إدخال البريد، ويرسل رابط إعادة التعيين،
+        وصفحة لتعيين كلمة مرور جديدة. الإرسال يستخدم إعدادات البريد المحفوظة في اللوحة (وليس ملف السيرفر فقط).
       </p>
       <figure class="evidence">
-        <img src="qa-report-images/08-forgot-password.png" alt="New forgot-password page">
-        <figcaption>The new page: enter email, send the link, and return to login.</figcaption>
+        <img src="qa-report-images/08-forgot-password.png" alt="صفحة نسيت كلمة المرور الجديدة">
+        <figcaption>الصفحة الجديدة: إدخال البريد وإرسال رابط العودة لتسجيل الدخول.</figcaption>
       </figure>
     </div>
     <div class="card fix-card">
-      <div class="badge fix">Fixed</div>
-      <h3>Mail sending uses dashboard settings</h3>
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>ربط البريد بإعدادات اللوحة بشكل صحيح</h3>
       <p style="margin:0;">
-        SMTP settings under Dashboard → Settings → Email are now the source of truth for sending (including SSL for port 465).
-        If the fields are empty, the system does not try a dummy server.
+        إعدادات SMTP في لوحة التحكم ← الإعدادات ← البريد أصبحت هي المصدر المعتمد للإرسال (مع تصحيح التشفير SSL لمنفذ 465).
+        إذا كانت الحقول فارغة، النظام لا يحاول الإرسال عبر سيرفر وهمي.
       </p>
       <figure class="evidence">
-        <img src="qa-report-images/22-settings-email.png" alt="Email settings tab in the dashboard">
-        <figcaption>Mail fields: host, port, username, password, from address and from name.</figcaption>
+        <img src="qa-report-images/22-settings-email.png" alt="تبويب إعدادات البريد في لوحة التحكم">
+        <figcaption>مكان بيانات البريد: الخادم، المنفذ، المستخدم، كلمة المرور، عنوان واسم المرسل.</figcaption>
       </figure>
     </div>
     <div class="card fix-card">
-      <div class="badge fix">Fixed</div>
-      <h3>Wrong redirect after a “partner” login</h3>
-      <p style="margin:0;">Signing in with that role used to open a missing page. It now opens the dashboard home.</p>
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>توجيه خاطئ بعد الدخول لحساب «شريك»</h3>
+      <p style="margin:0;">كان الدخول بهذا الدور يوجّه لصفحة غير موجودة. أصبح يفتح الصفحة الرئيسية للوحة.</p>
     </div>
     <div class="card fix-card">
-      <div class="badge fix">Fixed</div>
-      <h3>Admin email mismatch in first-run seed data</h3>
-      <p style="margin:0;">Seeding mixed two email formats. The format is now consistent so login details are not confusing at handover.</p>
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>اختلاف بريد حساب المدير في بيانات الإنشاء الأولى</h3>
+      <p style="margin:0;">كان الإنشاء يخلط بين صيغتين للبريد. وُحّدت الصيغة حتى لا يحدث لبس عند تسليم بيانات الدخول.</p>
+    </div>
+    <div class="card fix-card" id="note-ar-content">
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>المحتوى العربي في الصفحات الداخلية</h3>
+      <p style="margin:0;">
+        عناوين «من نحن» و«اتصل بنا» وحقول نموذج التواصل أصبحت مترجمة. الزائر العربي يرى النصوص بالعربية بدل مزيج اللغتين.
+      </p>
+      <figure class="evidence">
+        <img src="qa-report-images/06-contact-ar.png" alt="صفحة اتصل بنا بالعربية بعد الترجمة">
+        <figcaption>اتصل بنا والنظام على العربية: العنوان والنموذج بالعربية.</figcaption>
+      </figure>
     </div>
     <div class="card fix-card" id="note-placeholders">
-      <div class="badge fix">Fixed</div>
-      <h3>Placeholder contact details hidden</h3>
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>إخفاء بيانات التواصل التجريبية</h3>
       <p style="margin:0;">
-        555 numbers, example.com emails, and a Dhaka map no longer show to visitors when contact fields are empty in the dashboard.
-        A “Contact us” link is shown instead. Enter the real phone, email, and address under Settings → Contact when they are available.
+        أرقام 555 وإيميل example.com وخريطة دكا لم تعد تظهر للزائر. إذا كانت بيانات التواصل فارغة في اللوحة، يظهر رابط «تواصل معنا» بدل أرقام وهمية.
+        أدخل الهاتف والإيميل والعنوان الحقيقي من الإعدادات ← التواصل عند التوفر.
       </p>
       <figure class="evidence">
-        <img src="qa-report-images/12-footer-en.png" alt="English footer after placeholder contact details were removed">
-        <figcaption>English footer: legal links work, without demo phone numbers or emails.</figcaption>
+        <img src="qa-report-images/12-footer-ar-fixed.png" alt="فوتر النسخة العربية بعد إزالة البيانات التجريبية">
+        <figcaption>الفوتر العربي: روابط قانونية تعمل، وبدون أرقام أو إيميل تجريبي.</figcaption>
       </figure>
     </div>
     <div class="card fix-card" id="note-job">
-      <div class="badge fix">Fixed</div>
-      <h3>Job content now matches the listing</h3>
+      <div class="badge fix">تم الإصلاح</div>
+      <h3>محتوى الوظائف أصبح متطابقاً</h3>
       <p style="margin:0;">
-        Each job description matches its title, location is Remote, and type is full-time. The application form is present and works.
+        وصف كل وظيفة يطابق مسماها، والمكان Remote، والنوع دوام كامل. نموذج التقديم موجود ويعمل.
       </p>
       <figure class="evidence">
-        <img src="qa-report-images/18-career-details.png" alt="Job details after title, description, and location were aligned">
-        <figcaption>Job details: title, description, and location match.</figcaption>
+        <img src="qa-report-images/18-career-details.png" alt="تفاصيل وظيفة بعد تصحيح الوصف والمكان">
+        <figcaption>تفاصيل الوظيفة: العنوان والوصف والمكان متوافقة.</figcaption>
       </figure>
     </div>
     <div class="card fix-card" id="fix-tests">
-      <div class="badge fix">New — full automated suite</div>
-      <h3>121 automated tests (Pest PHP 4)</h3>
+      <div class="badge fix">جديد — اختبارات برمجية شاملة</div>
+      <h3>إضافة 121 اختبار برمجي (Pest PHP 4)</h3>
       <p style="margin:0;">
-        The suite covers login and security, roles, website pages, accessibility, models (Blog, SystemSetting, ContactMessage, BlockedIp, NewsletterSubscriber),
-        Livewire forms, and rate limiting.
+        أُنشئت مجموعة اختبارات شاملة تغطي: تسجيل الدخول والأمان، الصلاحيات والأدوار، صفحات الموقع،
+        إمكانية الوصولية، الموديلات (Blog, SystemSetting, ContactMessage, BlockedIp, NewsletterSubscriber)،
+        النماذج LiveWire، والتعامل مع Slack و Rate Limiting.
       </p>
       <p style="margin:8px 0 0;">
-        <strong>Results: 121 passed / 0 failed / 358 assertions</strong> — each test checks real site behaviour.
+        <strong>النتائج: 121 ناجح / 0 فشل / 358 عبارة تحقق</strong> — كل اختبار يتحقق من سلوك حقيقي في الموقع.
       </p>
     </div>
 
-    <h2>Remaining notes</h2>
+    <h2>الملاحظات المتبقية</h2>
     <div class="card warn-card" id="note-smtp">
-      <div class="badge warn">Warning</div>
-      <h3>Mail server details are incomplete</h3>
+      <div class="badge warn">تنبيه</div>
+      <h3>بيانات خادم البريد غير مكتملة</h3>
       <p style="margin:0;">
-        The forgot-password page works, but host, username, password, and from-address are still empty in the dashboard.
-        Until they are filled, the message will not reach a real inbox. Fill them under Settings → Email, save, then send a reset link to yourself.
+        صفحة نسيت كلمة المرور تعمل، لكن خادم البريد واسم المستخدم وكلمة المرور وعنوان المرسل ما زالت فارغة في اللوحة.
+        بدون تعبئتها، الرسالة لن تصل لصندوق الوارد الحقيقي. املأها من الإعدادات ← البريد، احفظ، ثم جرّب إرسال رابط لنفسك.
       </p>
     </div>
     <div class="card warn-card" id="note-payment">
-      <div class="badge warn">Warning</div>
-      <h3>No payment gateway is connected</h3>
+      <div class="badge warn">تنبيه</div>
+      <h3>لا توجد بوابة دفع مربوطة</h3>
       <p style="margin:0;">
-        Pricing is for display. Trial/start buttons go to contact, not a checkout step. That is fine for a marketing site.
-        Selling subscriptions from the website later would be a separate project.
+        قسم الباقات للعرض. أزرار التجربة/البدء توجّه للتواصل وليس لخطوة دفع. هذا مناسب لموقع تعريفي،
+        وإذا كانت الخطة بيع اشتراكات من الموقع لاحقاً فذلك مشروع منفصل.
       </p>
     </div>
 
-    <h2>Screenshots from the site</h2>
-    <p class="muted">Click any image to view it larger. Arabic UI captures from the old bilingual review were removed.</p>
+    <h2>لقطات من الموقع</h2>
+    <p class="muted">اضغط على أي صورة لعرضها بحجم أكبر.</p>
     <div class="gallery">
       <figure class="shot">
-        <img src="qa-report-images/05-blog-en.png" alt="Blog">
-        <figcaption>Blog</figcaption>
+        <img src="qa-report-images/01-home-en.png" alt="الرئيسية بالإنجليزية">
+        <figcaption>الرئيسية — الإنجليزية</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/15-blog-details.png" alt="Article details">
-        <figcaption>Article details</figcaption>
+        <img src="qa-report-images/02-home-ar.png" alt="الرئيسية بالعربية">
+        <figcaption>الرئيسية — العربية</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/16-contact-submitted.png" alt="Contact">
-        <figcaption>Contact</figcaption>
+        <img src="qa-report-images/03-lang-switcher.png" alt="زر تبديل اللغة">
+        <figcaption>تبديل اللغة (ع / EN)</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/34-news-list.png" alt="News">
-        <figcaption>News / blog</figcaption>
+        <img src="qa-report-images/04-about-ar.png" alt="من نحن">
+        <figcaption>من نحن</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/43-users-list.png" alt="Users">
-        <figcaption>Dashboard users</figcaption>
+        <img src="qa-report-images/05-blog-en.png" alt="المدونة">
+        <figcaption>المدونة</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/17-career-en.png" alt="Careers">
-        <figcaption>Careers</figcaption>
+        <img src="qa-report-images/15-blog-details.png" alt="تفاصيل مقال">
+        <figcaption>تفاصيل مقال</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/19-case-study.png" alt="Case study">
-        <figcaption>Case study</figcaption>
+        <img src="qa-report-images/06-contact-ar.png" alt="اتصل بنا">
+        <figcaption>اتصل بنا</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/14-terms-en.png" alt="Terms of service">
-        <figcaption>Terms of service</figcaption>
+        <img src="qa-report-images/31-contact-valid.png" alt="تواصل بعد الإرسال">
+        <figcaption>تواصل — إرسال صحيح</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/07-dashboard-login.png" alt="Dashboard login">
-        <figcaption>Dashboard login</figcaption>
+        <img src="qa-report-images/34-news-list.png" alt="الأخبار">
+        <figcaption>الأخبار / المدونة</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/08-forgot-password.png" alt="Forgot password">
-        <figcaption>Forgot password</figcaption>
+        <img src="qa-report-images/43-users-list.png" alt="المستخدمون">
+        <figcaption>المستخدمون في اللوحة</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/20-dashboard-home.png" alt="Dashboard home">
-        <figcaption>Dashboard home</figcaption>
+        <img src="qa-report-images/16-contact-submitted.png" alt="نجاح إرسال رسالة">
+        <figcaption>رسالة التواصل وصلت</figcaption>
       </figure>
       <figure class="shot">
-        <img src="qa-report-images/21-settings.png" alt="Settings">
-        <figcaption>General settings</figcaption>
+        <img src="qa-report-images/17-career-en.png" alt="الوظائف">
+        <figcaption>الوظائف</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/19-case-study.png" alt="دراسة حالة">
+        <figcaption>دراسة حالة</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/13-privacy-ar.png" alt="سياسة الخصوصية">
+        <figcaption>سياسة الخصوصية</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/14-terms-en.png" alt="شروط الخدمة">
+        <figcaption>شروط الخدمة</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/07-dashboard-login.png" alt="دخول اللوحة">
+        <figcaption>دخول لوحة التحكم</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/08-forgot-password.png" alt="نسيت كلمة المرور">
+        <figcaption>نسيت كلمة المرور — صفحة جديدة</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/20-dashboard-home.png" alt="لوحة التحكم">
+        <figcaption>الصفحة الرئيسية للوحة</figcaption>
+      </figure>
+      <figure class="shot">
+        <img src="qa-report-images/21-settings.png" alt="الإعدادات">
+        <figcaption>الإعدادات العامة</figcaption>
       </figure>
     </div>
 
-    <h2>Public-site summary</h2>
+    <h2>ملخص أقسام الموقع</h2>
     <table>
       <thead>
-        <tr><th>Section</th><th>Status</th><th>Pass</th><th>Warn</th><th>Fail</th></tr>
+        <tr><th>القسم</th><th>الحالة</th><th>ناجح</th><th>تنبيه</th><th>فشل</th></tr>
       </thead>
       <tbody>
-        <tr><td>Home (English only)</td><td class="ok">OK</td><td>1</td><td>0</td><td>0</td></tr>
-        <tr><td>Team</td><td class="ok">OK</td><td>1</td><td>0</td><td>0</td></tr>
-        <tr><td>About</td><td class="ok">OK</td><td>1</td><td>0</td><td>0</td></tr>
-        <tr><td>Careers and details</td><td class="ok">OK</td><td>3</td><td>0</td><td>0</td></tr>
-        <tr><td>Blog and article details</td><td class="ok">OK</td><td>3</td><td>0</td><td>0</td></tr>
-        <tr><td>Case study</td><td class="ok">OK</td><td>1</td><td>0</td><td>0</td></tr>
-        <tr><td>Contact (form saves)</td><td class="ok">OK</td><td>3</td><td>0</td><td>0</td></tr>
-        <tr><td>Privacy policy and terms</td><td class="ok">OK</td><td>2</td><td>0</td><td>0</td></tr>
-        <tr><td>Missing page (404)</td><td class="ok">OK</td><td>2</td><td>0</td><td>0</td></tr>
-        <tr><td>Footer</td><td class="ok">OK</td><td>1</td><td>0</td><td>0</td></tr>
-        <tr><td>Pricing (display only)</td><td class="warn">Warning</td><td>1</td><td>1</td><td>0</td></tr>
+        <tr><td>الرئيسية (عربي + إنجليزي)</td><td class="ok">سليم</td><td>2</td><td>0</td><td>0</td></tr>
+        <tr><td>تبديل اللغة</td><td class="ok">سليم</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>الفريق</td><td class="ok">سليم</td><td>2</td><td>0</td><td>0</td></tr>
+        <tr><td>من نحن</td><td class="ok">سليم</td><td>2</td><td>0</td><td>0</td></tr>
+        <tr><td>الوظائف وتفاصيلها</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>المدونة وتفاصيل المقال</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>دراسة الحالة</td><td class="ok">سليم</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>اتصل بنا (النموذج يحفظ)</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>سياسة الخصوصية وشروط الخدمة</td><td class="ok">سليم</td><td>4</td><td>0</td><td>0</td></tr>
+        <tr><td>صفحة غير موجودة (404)</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>الفوتر</td><td class="ok">سليم</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>الباقات (عرض فقط)</td><td class="warn">تنبيه</td><td>1</td><td>1</td><td>0</td></tr>
       </tbody>
     </table>
 
-    <h2>Dashboard summary</h2>
-    <p class="muted">Every sidebar link was opened after sign-in. No page returned a server error.</p>
+    <h2>ملخص لوحة التحكم</h2>
+    <p class="muted">تم فتح كل روابط القائمة الجانبية بعد تسجيل الدخول. لا توجد صفحة أعطت خطأ خادم.</p>
     <table>
       <thead>
-        <tr><th>Section</th><th>Status</th><th>Pass</th><th>Warn</th><th>Fail</th></tr>
+        <tr><th>القسم</th><th>الحالة</th><th>ناجح</th><th>تنبيه</th><th>فشل</th></tr>
       </thead>
       <tbody>
-        <tr><td>Sign in</td><td class="ok">OK</td><td>1</td><td>0</td><td>0</td></tr>
-        <tr><td>Forgot password + reset</td><td class="warn">Warning</td><td>3</td><td>1</td><td>0</td></tr>
-        <tr><td>Home, analytics, and profile</td><td class="ok">OK</td><td>3</td><td>0</td><td>0</td></tr>
-        <tr><td>Users, admins, roles, and permissions</td><td class="ok">OK</td><td>4</td><td>0</td><td>0</td></tr>
-        <tr><td>Site content (team, jobs, blog, legal…)</td><td class="ok">OK</td><td>24</td><td>0</td><td>0</td></tr>
-        <tr><td>Settings (general + email)</td><td class="warn">Warning</td><td>2</td><td>1</td><td>0</td></tr>
-        <tr><td>Newsletter, backups, and blocked IPs</td><td class="ok">OK</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>تسجيل الدخول</td><td class="ok">سليم</td><td>1</td><td>0</td><td>0</td></tr>
+        <tr><td>نسيت كلمة المرور + إعادة التعيين</td><td class="warn">تنبيه</td><td>3</td><td>1</td><td>0</td></tr>
+        <tr><td>الرئيسية والتحليلات والملف الشخصي</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
+        <tr><td>المستخدمون والمديرون والأدوار والصلاحيات</td><td class="ok">سليم</td><td>4</td><td>0</td><td>0</td></tr>
+        <tr><td>محتوى الموقع (فريق، وظائف، مدونة، قانونية…)</td><td class="ok">سليم</td><td>24</td><td>0</td><td>0</td></tr>
+        <tr><td>الإعدادات (عام + بريد)</td><td class="warn">تنبيه</td><td>2</td><td>1</td><td>0</td></tr>
+        <tr><td>النشرة والنسخ الاحتياطي وعناوين IP</td><td class="ok">سليم</td><td>3</td><td>0</td><td>0</td></tr>
       </tbody>
     </table>
 
-    <h2>What this means for the project owner</h2>
+    <h2>ماذا يعني هذا لصاحب المشروع؟</h2>
     <div class="card">
-      <p><strong class="ok">OK:</strong> the page or button works normally, and nothing blocks use.</p>
-      <p><strong class="warn">Warning:</strong> the site works, but a decision, content, or setting is still needed before official launch.</p>
-      <p><strong class="bad">Error:</strong> an important feature does not work now. <strong>Nothing is currently classified as an error.</strong></p>
+      <p><strong class="ok">سليم:</strong> الصفحة أو الزر يشتغل بشكل طبيعي، وما في شيء يمنع استخدامه.</p>
+      <p><strong class="warn">تنبيه:</strong> الموقع يشتغل، لكن فيه نقطة تحتاج قرار أو محتوى أو إعداد قبل الإطلاق الرسمي.</p>
+      <p><strong class="bad">خطأ:</strong> وظيفة مهمة لا تعمل الآن. <strong>لا يوجد حالياً بند مصنّف كخطأ.</strong></p>
     </div>
 
-    <h2>Recommendation before launch</h2>
+    <h2>التوصية قبل الإطلاق</h2>
     <div class="card">
-      <p style="margin:0 0 8px;">The site is ready for preview and internal use. Before official launch, in this order:</p>
+      <p style="margin:0 0 8px;">الموقع جاهز للمعاينة والاستخدام الداخلي. قبل الإطلاق الرسمي بالترتيب:</p>
       <ul>
-        <li>Fill SMTP details under Settings → Email and try forgot-password on a real inbox.</li>
-        <li>Enter a real phone, email, and address under Settings → Contact when they are available.</li>
-        <li>Have a specialist review the legal pages if needed.</li>
+        <li>تعبئة بيانات SMTP من الإعدادات ← البريد وتجربة نسيت كلمة المرور على إيميل حقيقي.</li>
+        <li>إدخال هاتف وإيميل وعنوان حقيقيين من الإعدادات ← التواصل عند التوفر.</li>
+        <li>مراجعة الصفحات القانونية مع مختص إن لزم.</li>
       </ul>
     </div>
 
     <footer>
-      This published report was updated on 27 August 2026 to match the English-only site.
-      Review results: 25 August 2026. Automated tests: 121 Pest PHP tests with 358 assertions.
-      Images live in <code>qa-report-images/</code> · open this file directly in a browser.
+      تم إنشاء هذا التقرير من نتائج المراجعة في ٢٥ أغسطس ٢٠٢٦.
+      الاختبارات البرمجية: 121 اختبار Pest PHP بـ 358 عبارة تحقق.
+      الصور في <code>qa-report-images/</code> · افتح هذا الملف مباشرة في المتصفح.
     </footer>
   </div>
 
   <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close">&times;</button>
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="إغلاق">&times;</button>
     <img id="lightbox-img" alt="">
   </div>
   <script>
